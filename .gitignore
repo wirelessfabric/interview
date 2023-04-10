@@ -1,0 +1,9 @@
+*.exe
+*.obj
+*.o
+c/*.exe
+c/*.obj
+c/*.o
+cpp/*.exe
+cpp/*.obj
+cpp/*.o
