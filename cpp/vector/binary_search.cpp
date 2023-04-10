@@ -66,7 +66,7 @@ std::vector<void (*)(void)> examples {
 };
 
 int main() {
-    for (auto &f : examples)
+    for (const auto& f : examples)
         f();
 }
 
