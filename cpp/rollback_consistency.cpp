@@ -1,25 +1,13 @@
 // SPDX-License-Identifier: MIT
-// g++ -std=c++17 -O3 -lstdc++ -lm rollbackConsistency.cpp -o rollbackConsistency
+// g++ -std=c++23 -O3 -lstdc++ -lm rollback_consistency.cpp -o rollback_consistency
 // g++ --version 9.3.0
+//
+// %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
+// cl /EHsc /std:c++20 /I.. rollback_consistency.cpp
+// cl version 19.35.32215 for x64
 
-#include <iostream>
-#include <array>
-#include <vector>
-#include <queue>
-#include <map>
-#include <unordered_map>
-#include <numeric>
-#include <functional>
-#include <algorithm>
-#include <memory>
-#include <limits>
-
-static const auto speedup = []() {
-    std::ios_base::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    std::cout.tie(nullptr);
-    return nullptr;
-}();
+#include "common.h"
+#include "speedup.h"
 
 struct account_balance {
     int account_id;

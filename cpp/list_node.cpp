@@ -1,22 +1,14 @@
 // SPDX-License-Identifier: MIT
-// g++ -std=c++17 -O3 -lstdc++ -lm listNode.cpp -o listNode
+// g++ -std=c++23 -O3 -lstdc++ -lm list_node.cpp -o list_node
 // g++ --version 9.3.0
+//
+// %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
+// cl /EHsc /std:c++20 /I.. list_node.cpp
+// cl version 19.35.32215 for x64
 
-#include <iostream>
-#include <string>
-#include <array>
-#include <vector>
-#include <queue>
-#include <map>
-#include <unordered_map>
-#include <tuple>
-#include <cstdint>
-#include <numeric>
-#include <functional>
-#include <algorithm>
-#include <limits>
-#include <iomanip>
-#include <random>
+#include "common.h"
+#include "print.h"
+#include "speedup.h"
 
 struct ListNode {
     int val;
@@ -42,37 +34,6 @@ void print(const ListNode* node, const char *text = nullptr) {
     if (text)
         std::cout << std::endl;
 }
-
-void print_begin(const char *text = nullptr) {
-    if (text)
-        std::cout << text << " = ";
-    std::cout << "[";
-}
-
-void print_end(const char *text = nullptr) {
-    std::cout << "]";
-    if (text)
-        std::cout << std::endl;
-}
-
-template<typename T>
-void print(const std::vector<T> &v, const char *text = nullptr) {
-    print_begin(text);
-    int n = 0;
-    for (const auto &e : v) {
-        if (n++)
-            std::cout << ",";
-        std::cout << e;
-    }
-    print_end(text);
-}
-
-static const auto speedup = []() {
-    std::ios_base::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    std::cout.tie(nullptr);
-    return nullptr;
-}();
 
 class RandomSolution {
 public:
