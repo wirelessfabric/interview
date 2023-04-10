@@ -1,2 +1,1 @@
-# various interview code snippets
-# see LICENSE
+# Various interview code snippets
