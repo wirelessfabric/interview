@@ -49,7 +49,7 @@ inline void osYieldThread() {}
 #endif
 #endif
 
-namespace cvTimex {
+namespace portable {
     struct spin_mutex {
         void lock() noexcept {
             constexpr std::array iterations = { 5, 10, 3000 };
