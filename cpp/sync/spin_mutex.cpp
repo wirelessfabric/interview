@@ -5,6 +5,12 @@
 #include <thread>
 #include <array>
 
+// https://en.cppreference.com/w/cpp/atomic/atomic_flag
+// Warning! This is for demo purposes. Do not use a spinlock for locking
+// since it eats the time slice of your process.
+// See Linus Torvalds' rant on spinlock
+// https://www.realworldtech.com/forum/?threadid=189711&curpostid=189723
+
 // __clang__
 // __GNUC__
 // _MSC_VER
@@ -99,12 +105,6 @@ namespace portable {
         std::atomic_flag flag = ATOMIC_FLAG_INIT;
     };
 }
-
-// https://en.cppreference.com/w/cpp/atomic/atomic_flag
-// Warning! This is for demo purposes. Do not use a spinlock for locking
-// since it eats the time slice of your process.
-// See Linus Torvalds' rant on spinlock
-// https://www.realworldtech.com/forum/?threadid=189711&curpostid=189723
 
 // Timur Doumler - Using Locks in Real Time Audio Processing, Safely 
 // https://www.youtube.com/watch?v=DHx9kv74Mlc
