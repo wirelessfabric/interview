@@ -17,18 +17,18 @@ static bool debug = true;
 
 #if defined(__ARM_NEON__) || defined(__ARM_NEON) || defined(__arm64__) || defined(__aarch64__)
 #include <arm_neon.h>
-float dot_f32_neon(const float* v1, const float* v2, size_t n)
+float dot_f32_neon_64(const float* v1, const float* v2, size_t n)
 {
     float32x4_t q1, q2;
-    float32x4_t sum = vdupq_n_f32(0.f);
+    float32x4_t sum = vdupq_n_f32(0.0f);
     assert(v1 && v2 && n > 0);
     assert(n % 4 == 0);
-    do {
+    for (int i = 0; i < n; i += 4) {
         q1 = vld1q_f32(&v1[i]);
         q2 = vld1q_f32(&v2[i]);
         sum = vmlaq_f32(sum, q1, q2);
-    } while (n -= 4);
-    return sum;
+    }
+    return (float)vaddvq_f32(sum);
 }
 #endif
 
@@ -65,9 +65,9 @@ int main(int argc, char *argv[])
     printf("dot_f32: (%d) 0 . 0 = %f\n", N, dot_f32(zero, zero, N));
 
 #if defined(__ARM_NEON__) || defined(__ARM_NEON) || defined(__arm64__) || defined(__aarch64__)
-    printf("dot_f32_neon: (%d) v1 . v2 = %f\n", N, dot_f32_neon(v1, v2, N));
-    printf("dot_f32_neon: (%d) 1 . 1 = %f\n", N, dot_f32_neon(one, one, N));
-    printf("dot_f32_neon: (%d) 0 . 0 = %f\n", N, dot_f32_neon(zero, zero, N));
+    printf("dot_f32_neon_64: (%d) v1 . v2 = %f\n", N, dot_f32_neon_64(v1, v2, N));
+    printf("dot_f32_neon_64: (%d) 1 . 1 = %f\n", N, dot_f32_neon_64(one, one, N));
+    printf("dot_f32_neon_64: (%d) 0 . 0 = %f\n", N, dot_f32_neon_64(zero, zero, N));
 #endif
 
     return 0;
