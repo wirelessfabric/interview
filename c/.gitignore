@@ -6,6 +6,7 @@
 *.wasm
 *.html
 counter
+dot_product
 fifo
 list_reverse
 popcount

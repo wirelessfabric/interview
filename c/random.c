@@ -3,15 +3,13 @@
 // gcc --version 11.3.0 on soho ubuntu 22.04
 //
 // %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
-// cl /EHsc /I.. random.c
+// cl /EHsc random.c
 // cl version 19.35.32215 for x64
 
 // https://www.youtube.com/watch?v=wDj64pSeQ4I
 // Is rand( ) Actually Random?
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#include "common.h"
 #ifdef __linux__
 #include <openssl/rand.h>
 #endif

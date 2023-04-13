@@ -10,10 +10,7 @@
 // cl /EHsc popcount.c
 // cl version 19.35.32215 for x64
 
-
-#include <stdio.h>
-#include <stdint.h>
-#include <stdbool.h>
+#include "common.h"
 
 // a.k.a Hamming Weight
 

@@ -1,10 +1,16 @@
 // SPDX-License-Identifier: MIT
+//
 // gcc -O3 string_reverse.c -o string_reverse
 // gcc --version 11.3.0 on soho ubuntu 22.04
+//
+// clang -O3 string_reverse.c -o string_reverse
+// Apple clang version 14.0.0 (clang-1400.0.29.202) on Apple M1 macOS Ventura 13.2.1
+//
+// %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
+// cl /EHsc string_reverse.c
+// cl version 19.35.32215 for x64
 
-#include <stdio.h>
-#include <stdint.h>
-#include <string.h>
+#include "common.h"
 
 #define BUFFER_CAPACITY 1024
 #define BUFFER_ALLOC    ((BUFFER_CAPACITY / sizeof(uint32_t)) + 2)

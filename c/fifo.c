@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+//
 // gcc -O3 fifo.c -o fifo -lm -ltbb
 // g++ --version 11.3.0 on soho ubuntu 22.04
 //

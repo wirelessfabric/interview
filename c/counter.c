@@ -10,10 +10,8 @@
 // cl /EHsc counter.c
 // cl version 19.35.32215 for x64
 
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
+#include "common.h"
+#include "print.h"
 
 static bool debug = true;
 
@@ -77,21 +75,6 @@ int *generate_data(int n, size_t *data_count) // [1, 2, 2, 3, 3, 3, ...]
     return data;
 }
 
-void print_data(int *data, size_t data_count)
-{
-    size_t size;
-    int i = 0;
-
-    printf("(%zd) [ ", data_count);
-    for (;;) {
-        printf("%d", *data++);
-        if (++i == data_count)
-            break;
-        printf(", ");
-    }
-    printf(" ]");
-}
-
 int main(int argc, char *argv[])
 {
     int *data;
@@ -107,7 +90,7 @@ int main(int argc, char *argv[])
         data = generate_data(n, &data_count);
         if (data && data_count) {
             if (debug)    
-                print_data(data, data_count);
+                print_int(data, data_count);
             for (m=0; m < max; m++) {
                 size_t found = counter(data, data_count, m);
                 if ((found != m) && (m != 0 && m < n))
