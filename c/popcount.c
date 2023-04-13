@@ -1,10 +1,15 @@
 // SPDX-License-Identifier: MIT
 //
-// gcc -O3 counter.c -o counter
+// gcc -O3 popcount.c -o popcount
 // gcc --version 11.3.0 on soho ubuntu 22.04
 //
-// clang -O3 counter.c -o counter
+// clang -O3 popcount.c -o popcount
 // Apple clang version 14.0.0 (clang-1400.0.29.202) on Apple M1 macOS Ventura 13.2.1
+//
+// %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
+// cl /EHsc popcount.c
+// cl version 19.35.32215 for x64
+
 
 #include <stdio.h>
 #include <stdint.h>
