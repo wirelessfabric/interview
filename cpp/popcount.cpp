@@ -7,7 +7,7 @@
 // Apple clang++ version 14.0.0 (clang-1400.0.29.202) on Apple M1 macOS Ventura 13.2.1
 //
 // %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
-// cl /EHsc /std:c++17 popcount.cpp
+// cl /EHsc /std:c++20 popcount.cpp
 // cl version 19.35.32215 for x64
 
 #include <iostream>
