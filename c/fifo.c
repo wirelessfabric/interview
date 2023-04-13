@@ -1,7 +1,10 @@
 // SPDX-License-Identifier: MIT
 //
-// gcc -O3 fifo.c -o fifo -lm -ltbb
+// gcc -O3 fifo.c -o fifo
 // g++ --version 11.3.0 on soho ubuntu 22.04
+//
+// clang -O3 fifo.c -o fifo
+// Apple clang version 14.0.0 (clang-1400.0.29.202) on Apple M1 macOS Ventura 13.2.1
 //
 // %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
 // cl /EHsc fifo.c
