@@ -1,0 +1,5 @@
+*.exe
+*.obj
+*.o
+bitwise_complement
+swap

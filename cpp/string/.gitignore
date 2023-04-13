@@ -1,0 +1,15 @@
+*.exe
+*.obj
+*.o
+buddy_strings
+close_strings
+directory_node
+last_word_len
+partition
+remove_duplicate_letters
+rep_string
+robot_bound
+string_to_integer
+version
+word_count
+word_pattern

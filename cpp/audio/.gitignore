@@ -1,0 +1,6 @@
+*.exe
+*.obj
+*.o
+biquad_coefficients
+doube_buffering
+fifo

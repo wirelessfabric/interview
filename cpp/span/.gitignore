@@ -1,0 +1,5 @@
+*.exe
+*.obj
+*.o
+kokkos_mdspan
+matrix_transpose

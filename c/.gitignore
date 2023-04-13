@@ -1,0 +1,10 @@
+*.exe
+*.obj
+*.o
+counter
+fifo
+list_reverse
+popcount
+random
+spacer
+string_reverse

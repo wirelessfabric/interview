@@ -1,0 +1,8 @@
+*.exe
+*.obj
+*.o
+average
+bit_width
+dft
+factorial
+fibonacci
