@@ -1,5 +1,9 @@
 *.exe
 *.obj
 *.o
+*.s
+*.ll
+*.wasm
+*.html
 spin_mutex
 ticket_mutex

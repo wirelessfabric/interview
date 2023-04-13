@@ -1,6 +1,10 @@
 *.exe
 *.obj
 *.o
+*.s
+*.ll
+*.wasm
+*.html
 buddy_strings
 close_strings
 directory_node

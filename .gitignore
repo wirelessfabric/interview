@@ -1,3 +1,7 @@
 *.exe
 *.obj
 *.o
+*.s
+*.ll
+*.wasm
+*.html

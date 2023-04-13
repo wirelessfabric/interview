@@ -1,6 +1,10 @@
 *.exe
 *.obj
 *.o
+*.s
+*.ll
+*.wasm
+*.html
 bag_of_tokens
 binary_search
 bogo_sort

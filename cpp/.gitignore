@@ -1,6 +1,10 @@
 *.exe
 *.obj
 *.o
+*.s
+*.ll
+*.wasm
+*.html
 get_maximum_generated
 list_node
 popcount

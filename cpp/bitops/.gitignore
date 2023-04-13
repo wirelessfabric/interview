@@ -1,5 +1,9 @@
 *.exe
 *.obj
 *.o
+*.s
+*.ll
+*.wasm
+*.html
 bitwise_complement
 swap

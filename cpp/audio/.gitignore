@@ -1,6 +1,10 @@
 *.exe
 *.obj
 *.o
+*.s
+*.ll
+*.wasm
+*.html
 biquad_coefficients
 doube_buffering
 fifo
