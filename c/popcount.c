@@ -1,4 +1,10 @@
 // SPDX-License-Identifier: MIT
+//
+// gcc -O3 counter.c -o counter
+// gcc --version 11.3.0 on soho ubuntu 22.04
+//
+// clang -O3 counter.c -o counter
+// Apple clang version 14.0.0 (clang-1400.0.29.202) on Apple M1 macOS Ventura 13.2.1
 
 #include <stdio.h>
 #include <stdint.h>

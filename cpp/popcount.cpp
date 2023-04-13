@@ -1,9 +1,13 @@
 // SPDX-License-Identifier: MIT
-// g++ -std=c++2a -O3 -I.. popcount.cpp -o popcount
+//
+// g++ -std=c++2a -O3 popcount.cpp -o popcount
 // g++ --version 11.3.0 on soho ubuntu 22.04
 //
+// clang++ -std=c++2a -O3 -I.. popcount.cpp -o popcount
+// Apple clang++ version 14.0.0 (clang-1400.0.29.202) on Apple M1 macOS Ventura 13.2.1
+//
 // %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
-// cl /EHsc /std:c++17 /I.. popcount.cpp
+// cl /EHsc /std:c++17 popcount.cpp
 // cl version 19.35.32215 for x64
 
 #include <iostream>
@@ -26,15 +30,15 @@ int popcount(uint32_t i) {
 // https://www.youtube.com/watch?v=Df-qEsWjzQw
 //
 
-constexpr bool pow2_std_has_single_bit(std::unsigned_integral auto u) { // 4:12
+constexpr bool pow2_std_has_single_bit(std::unsigned_integral auto u) { // @ 4:12
     return std::has_single_bit(u);
 }
 
-constexpr bool pow2_std_popcount(std::unsigned_integral auto u) { // 3:53
+constexpr bool pow2_std_popcount(std::unsigned_integral auto u) { // @ 3:53
     return std::popcount(u) == 1;
 }
 
-constexpr auto popcnt_bitset(std::unsigned_integral auto u) { // 3:20
+constexpr auto popcnt_bitset(std::unsigned_integral auto u) { // @ 3:20
     std::bitset<sizeof(decltype(u))> bs(u);
     return bs.count();
 }
@@ -43,7 +47,7 @@ constexpr bool pow2_bitset(std::unsigned_integral auto u) {
     return popcnt_bitset(u) == 1;
 }
 
-constexpr auto popcnt_concepts(std::unsigned_integral auto u) { // 2:08
+constexpr auto popcnt_concepts(std::unsigned_integral auto u) { // @ 2:08
     int popcnt{ 0 };
     for (auto i = 0u; i < sizeof(decltype(u)); ++i)
         if (u & (1u << i))
@@ -55,7 +59,7 @@ constexpr bool pow2_concepts(std::unsigned_integral auto u) {
     return popcnt_concepts(u) == 1;
 }
 
-constexpr auto popcnt_constexpr(unsigned u) { // 1:21
+constexpr auto popcnt_constexpr(unsigned u) { // @ 1:21
     int popcnt{ 0 };
     for (auto i = 0u; i < sizeof(u); ++i)
         if (u & (1u << i))
@@ -132,7 +136,11 @@ int main(int argc, char *argv[]) {
 
     std::cout << "popcnt() is " << popcnt(u) << std::endl;
 
-    std::cout << "pow2_popcnt() is " << pow2_popcnt(u) << std::endl;
+    std::cout << "popcnt_constexpr() is " << popcnt_constexpr(u) << std::endl;
+
+    std::cout << "popcnt_concepts() is " << popcnt_concepts(u) << std::endl;
+
+    std::cout << "popcnt_bitset() is " << popcnt_bitset(u) << std::endl;
 
     std::cout << "pow2_blsr() is " << pow2_blsr(u) << std::endl;
 
