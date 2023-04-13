@@ -1,4 +1,6 @@
-int add (int first, int second)
+// SPDX-License-Identifier: MIT
+
+int add(int a, int b)
 {
-	return first + second;
+	return a + b;
 }
