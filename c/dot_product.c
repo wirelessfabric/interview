@@ -29,20 +29,24 @@ float dot_f32(const float* v1, const float* v2, size_t n)
 
 int main(int argc, char *argv[])
 {
-    float v1[10] = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f };
-    float v2[10] = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f };
-    size_t n = sizeof(v1) / sizeof(v1[0]);
+    #define N 10
+    float zero[N] = { 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f, 0.f };
+    float one[N] = { 1.f, 1.f, 1.f, 1.f, 1.f, 1.f, 1.f, 1.f, 1.f, 1.f };
+    float v1[N] = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f };
+    float v2[N] = { 0.f, 1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f, 9.f };
+
+    printf("dot_f32: (%d) 0 . 0 = %f\n", N, dot_f32(zero, zero, N));
+    printf("dot_f32: (%d) 1 . 1 = %f\n", N, dot_f32(one, one, N));
 
     if (debug) {
         printf("v1: ");
-        print_f32(v1, n);
+        print_f32(v1, N);
         printf("\nv2: ");
-        print_f32(v2, n);
+        print_f32(v2, N);
         printf("\n");
     }
 
-    float dot = dot_f32(v1, v2, n);
-    printf("dot product: v1 . v2 = %f\n", dot);
+    printf("dot_f32: (%d) v1 . v2 = %f\n", N, dot_f32(v1, v2, N));
 
     return 0;
 }
