@@ -12,7 +12,7 @@
 
 class Solution {
 public:
-    int countServers(std::vector<std::vector<int>>& grid) {
+    int count_servers(std::vector<std::vector<int>>& grid) {
         const size_t m{ grid.size() };
         const size_t n{ grid[0].size() };
         std::vector<int> sum_columns(n, 0);
@@ -41,12 +41,13 @@ public:
 void example(const std::vector<std::vector<int>> &candidates, int target) {
     static auto counter = 1;
     std::cout << "Example " << counter++ << ": ";
-    Solution solution;
-    print(candidates);
-    std::cout << ", target = " << target;
 
     auto grid(candidates);
-    auto result = solution.countServers(grid);
+    print(grid);
+    std::cout << ", target = " << target;
+
+    Solution solution;
+    auto result = solution.count_servers(grid);
     std::cout << ", result = " << result;
     if (result == target)
         std::cout << " pass" << std::endl;
