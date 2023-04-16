@@ -15,8 +15,6 @@
 
 #if defined(__x86_64__) || defined(__i386__)
 #include <emmintrin.h>
-#elif defined(__ARM_NEON__) || defined(__ARM_NEON) || defined(__arm64__) || defined(__aarch64__)
-#include <arm_neon.h>
 #endif
 
 // https://www.jackcampbellsounds.com/2019/01/24/simdsseboilerplate.html
@@ -44,6 +42,7 @@ static void convolve_naive(float *inSig, size_t M,
 }
 
 #if 0
+#if defined(__x86_64__) || defined(__i386__)
 // https://www.jackcampbellsounds.com/2019/01/24/simdsseboilerplate.html
 
 static void convolve_simd_unaligned(float *inSig, size_t M,
@@ -124,6 +123,7 @@ static void convolve_simd(float *inSig, size_t M,
     }
 }
 #endif
+#endif
 
 void example(void (*f)(float*, size_t, float*, size_t, float*),
              float *inSig, size_t M,
@@ -136,9 +136,12 @@ void example(void (*f)(float*, size_t, float*, size_t, float*),
     f(inSig, M, inKernel, N, inSig);
 }
 
-void f1(void) { convolve_naive(nullptr, 0, nullptr, 0, nullptr); }
-//void f2(void) { convolve_simd_unaligned(nullptr, 0, nullptr, 0, nullptr); }
-//void f3(void) { convolve_simd(nullptr, 0, nullptr, 0, nullptr); }
+void f1(void) { example(convolve_naive, nullptr, 0, nullptr, 0, nullptr); }
+
+#if defined(__x86_64__) || defined(__i386__)
+//void f2(void) { example(convolve_simd_unaligned, nullptr, 0, nullptr, 0, nullptr); }
+//void f3(void) { example(convolve_simd, nullptr, 0, nullptr, 0, nullptr); }
+#endif
 
 std::vector<void (*)(void)> examples {
     f1
