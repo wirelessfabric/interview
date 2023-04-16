@@ -3,7 +3,6 @@
 #ifndef _COMMON_H_
 #define _COMMON_H_
 
-#define _USE_MATH_DEFINES   // M_PI, M_E
 #include <iostream>
 #include <string>
 #include <array>
@@ -17,6 +16,7 @@
 #include <algorithm>
 #include <execution>
 #include <random>
+#include <numbers>
 #include <limits>
 #include <climits>
 #include <cstring>

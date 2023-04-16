@@ -132,13 +132,13 @@ static void convolve_simd(float *inSig, size_t M,
 static void fill_sin(float* v, int n) {
     assert(v && n > 0);
     auto w{ 0.f };
-    const auto df{ (float)(2.0 * M_PI) / n };
+    const auto df{ (float)(2.0 * std::numbers::pi) / n };
     do { *v++ = sinf(w); w += df; } while (--n);
 }
 
 static void fill_gaussian(float* v, float f, int n) {
     assert(v && f > 0 && n > 0);
-    const auto tau{ (float)n / ((float)(2.0 * M_PI) * f) };
+    const auto tau{ (float)n / ((float)(2.0 * std::numbers::pi) * f) };
     const auto dt{ 1.f / f };
     auto t{ -dt * (float)n * 0.5f };
     do {
@@ -148,7 +148,7 @@ static void fill_gaussian(float* v, float f, int n) {
     } while (--n);
 }
 
-static static void example(void (*f)(const float*, int, const float*, int, float*),
+static void example(void (*f)(const float*, int, const float*, int, float*),
              float *input, int n,
              float *kernel, int m,
              float *output)
@@ -170,7 +170,7 @@ static static void example(void (*f)(const float*, int, const float*, int, float
 
 static float input[N], kernel[M], output[N];
 
-static static void f1(void) { example(convolve_1d_naive, input, N, kernel, M, output); }
+static void f1(void) { example(convolve_1d_naive, input, N, kernel, M, output); }
 
 static std::vector<void (*)(void)> examples {
     f1
