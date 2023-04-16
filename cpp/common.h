@@ -20,6 +20,7 @@
 #include <climits>
 #include <cstring>
 #include <cstdint>
+#include <cassert>
 #include <cmath>
 #include <iomanip>
 

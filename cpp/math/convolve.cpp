@@ -6,6 +6,15 @@
 // cl /EHsc /std:c++20 /I.. convolve.cpp
 // cl version 19.35.32215 for x64
 
+// https://www.jackcampbellsounds.com/2017/06/12/conv1.html
+// CONVOLUTION REVERB PART 1 - OVERVIEW
+
+// https://www.jackcampbellsounds.com/2017/06/12/conv2.html
+// CONVOLUTION REVERB PART 2 - DIRECT-FORM CONVOLUTION
+
+// https://www.jackcampbellsounds.com/2017/06/25/conv3.html
+// CONVOLUTION REVERB PART 3 - FAST CONVOLUTION
+
 // https://www.jackcampbellsounds.com/2019/01/24/simdsseboilerplate.html
 // GETTING STARTED WITH SIMD INTRINSICS by Jack Campbell
 
@@ -17,27 +26,22 @@
 #include <emmintrin.h>
 #endif
 
-// https://www.jackcampbellsounds.com/2019/01/24/simdsseboilerplate.html
-
-static void convolve_naive(float *inSig, size_t M,
-                           float *inKernel, size_t N,
-                           float *outSig)
+static void convolve_naive_1d(const float *input, int n,
+                              const float *kernel, int m,
+                              float *output)
 {
-    const size_t outLen = M + N - 1;
-    for (size_t i = 0; i < outLen; i+=4)
+    assert(input && kernel && output && m < n);
+    const auto size{ n - m + 1 };
+    for (auto i = 0; i < size; ++i)
     {
-        float accumulator = 0;
-        float prod;
-        float sig;
-        float kernel;
-        for (size_t j = 0; j < N; ++j)
+        float sum{ 0 };
+        for (auto j = 0; j < m; ++j)
         {
-            sig = inSig[i+j];
-            kernel = inKernel[N - 1 - j];
-            prod = sig * kernel;
-            accumulator = accumulator + prod;
+            const auto s = input[i + j];
+            const auto k = kernel[m - 1 - j];
+            sum += s * k;
         }
-        outSig[i] = accumulator;
+        output[i] = sum;
     }
 }
 
@@ -125,18 +129,18 @@ static void convolve_simd(float *inSig, size_t M,
 #endif
 #endif
 
-void example(void (*f)(float*, size_t, float*, size_t, float*),
-             float *inSig, size_t M,
-             float *inKernel, size_t N,
-             float *outSig)
+void example(void (*f)(const float*, int, const float*, int, float*),
+             float *input, int n,
+             float *kernel, int m,
+             float *output)
 {
     static auto counter = 1;
     std::cout << "Example " << counter++ << ": ";
 
-    f(inSig, M, inKernel, N, inSig);
+    f(input, n, kernel, m, output);
 }
 
-void f1(void) { example(convolve_naive, nullptr, 0, nullptr, 0, nullptr); }
+void f1(void) { example(convolve_naive_1d, nullptr, 0, nullptr, 0, nullptr); }
 
 #if defined(__x86_64__) || defined(__i386__)
 //void f2(void) { example(convolve_simd_unaligned, nullptr, 0, nullptr, 0, nullptr); }
