@@ -155,8 +155,8 @@ static void example(void (*f)(const float*, int, const float*, int, float*),
 {
     static auto counter = 1;
     std::cout << "Example " << counter++ << ": ";
-
     f(input, n, kernel, m, output);
+    std::cout << std::endl;
 }
 
 // Sample Rate = Sampling Frequency = 44100 Hz
