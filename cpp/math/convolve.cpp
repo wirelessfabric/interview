@@ -149,9 +149,9 @@ static void fill_gaussian(float* v, float f, int n) {
 }
 
 static void example(void (*f)(const float*, int, const float*, int, float*),
-             float *input, int n,
-             float *kernel, int m,
-             float *output)
+                    float *input, int n,
+                    float *kernel, int m,
+                    float *output)
 {
     static auto counter = 1;
     std::cout << "Example " << counter++ << ": ";
