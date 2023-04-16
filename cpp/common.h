@@ -3,6 +3,7 @@
 #ifndef _COMMON_H_
 #define _COMMON_H_
 
+#define _USE_MATH_DEFINES   // M_PI, M_E
 #include <iostream>
 #include <string>
 #include <array>
@@ -20,6 +21,7 @@
 #include <climits>
 #include <cstring>
 #include <cstdint>
+#include <cmath>
 #include <cassert>
 #include <cmath>
 #include <iomanip>

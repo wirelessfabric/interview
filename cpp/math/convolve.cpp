@@ -26,7 +26,7 @@
 #include <emmintrin.h>
 #endif
 
-static void convolve_naive_1d(const float *input, int n,
+static void convolve_1d_naive(const float *input, int n,
                               const float *kernel, int m,
                               float *output)
 {
@@ -129,7 +129,26 @@ static void convolve_simd(float *inSig, size_t M,
 #endif
 #endif
 
-void example(void (*f)(const float*, int, const float*, int, float*),
+static void fill_sin(float* v, int n) {
+    assert(v && n > 0);
+    auto w{ 0.f };
+    const auto df{ (float)(2.0 * M_PI) / n };
+    do { *v++ = sinf(w); w += df; } while (--n);
+}
+
+static void fill_gaussian(float* v, float f, int n) {
+    assert(v && f > 0 && n > 0);
+    const auto tau{ (float)n / ((float)(2.0 * M_PI) * f) };
+    const auto dt{ 1.f / f };
+    auto t{ -dt * (float)n * 0.5f };
+    do {
+        const auto k{ t / tau };
+        *v++ = expf(-k * k);
+        t += dt;
+    } while (--n);
+}
+
+static void example(void (*f)(const float*, int, const float*, int, float*),
              float *input, int n,
              float *kernel, int m,
              float *output)
@@ -140,18 +159,27 @@ void example(void (*f)(const float*, int, const float*, int, float*),
     f(input, n, kernel, m, output);
 }
 
-void f1(void) { example(convolve_naive_1d, nullptr, 0, nullptr, 0, nullptr); }
+// Sample Rate = Sampling Frequency = 44100 Hz
+// Sample Period = 1 / 44100 = ~0.0227 ms
+// Frame Size = 512
+// Frame Duration = 512 / 44100 = ~11.61 ms
 
-#if defined(__x86_64__) || defined(__i386__)
-//void f2(void) { example(convolve_simd_unaligned, nullptr, 0, nullptr, 0, nullptr); }
-//void f3(void) { example(convolve_simd, nullptr, 0, nullptr, 0, nullptr); }
-#endif
+#define F 44100
+#define N 512
+#define M 16
 
-std::vector<void (*)(void)> examples {
+static float input[N], kernel[M], output[N];
+
+static void f1(void) { example(convolve_1d_naive, input, N, kernel, M, output); }
+
+static std::vector<void (*)(void)> examples {
     f1
 };
 
 int main() {
+    fill_sin(input, N);
+    fill_gaussian(kernel, F, M);
+
     for (const auto& f : examples)
         f();
 }
