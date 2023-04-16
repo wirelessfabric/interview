@@ -28,7 +28,7 @@ public:
     }
 };
 
-void example(std::vector<std::vector<int>> &intervals, std::vector<int> &newInterval) {
+static void example(std::vector<std::vector<int>> &intervals, std::vector<int> &newInterval) {
     static auto counter = 1;
     std::cout << "Example " << counter++ << std::endl;
     Solution solution;

@@ -78,7 +78,7 @@ public:
     }
 };
 
-void example(int low, int high) {
+static void example(int low, int high) {
     static auto counter = 1;
     std::cout << "Example " << counter++ << std::endl;
     std::cout << "low = " << low << " high = " << high << std::endl;

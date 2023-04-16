@@ -140,7 +140,7 @@ class Solution {
 }
 #endif
 
-void example(vector<vector<int>>& A, vector<vector<int>>& B) {
+static void example(vector<vector<int>>& A, vector<vector<int>>& B) {
     Solution solution;
     auto overlap = solution.largestOverlap(A, B);
     std::cout << overlap << std::endl;

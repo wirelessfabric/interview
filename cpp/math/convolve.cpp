@@ -148,7 +148,7 @@ static void fill_gaussian(float* v, float f, int n) {
     } while (--n);
 }
 
-static void example(void (*f)(const float*, int, const float*, int, float*),
+static static void example(void (*f)(const float*, int, const float*, int, float*),
              float *input, int n,
              float *kernel, int m,
              float *output)
@@ -170,7 +170,7 @@ static void example(void (*f)(const float*, int, const float*, int, float*),
 
 static float input[N], kernel[M], output[N];
 
-static void f1(void) { example(convolve_1d_naive, input, N, kernel, M, output); }
+static static void f1(void) { example(convolve_1d_naive, input, N, kernel, M, output); }
 
 static std::vector<void (*)(void)> examples {
     f1

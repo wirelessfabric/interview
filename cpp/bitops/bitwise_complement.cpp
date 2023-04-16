@@ -76,7 +76,7 @@ public:
     }
 };
 
-void example(int N) {
+static void example(int N) {
     static auto counter = 1;
     std::cout << "Example " << counter++ << std::endl;
     Solution solution;
@@ -85,11 +85,11 @@ void example(int N) {
     std::cout << "result = " << result << std::endl;
 }
 
-void f1(void) { example(5); }
-void f2(void) { example(7); }
-void f3(void) { example(10); }
+static void f1(void) { example(5); }
+static void f2(void) { example(7); }
+static void f3(void) { example(10); }
 
-std::vector<void (*)(void)> examples {
+static std::vector<void (*)(void)> examples {
     f1, f2, f3
 };
 

@@ -80,20 +80,20 @@ void rob(const std::vector<int> &arg, int expect) {
     std::cout << std::endl;
 }
 
-void f1(void) { rob({1,2,3,1}, 4); }
-void f2(void) { rob({2,7,9,3,1}, 11); }
-void f3(void) { rob({2,1,1,2}, 3); }
-void f4(void) { rob({0,0,0}, 0); }
-void f5(void) { rob({1,2,2,1}, 3); }
-void f6(void) { rob({4,4,0,0}, 4); }
-void f7(void) { rob({1,3,1,3,100}, 103); }
-void f8(void) { rob({2,3,2}, 3); }
-void f9(void) { rob({4,1,2,7,5,3,1}, 14); }
-void f10(void) { rob({1,2,3,4,5,1,2,3,4,5}, 16); }
-void f11(void) { rob({1,7,9,4}, 11); }
-void f12(void) { rob({94,40,49,65,21,21,106,80,92,81,679,4,61,6,237,12,72,74,29,95,265,35,47,1,61,397,52,72,37,51,1,81,45,435,7,36,57,86,81,72}, 2926); }
+static void f1(void) { rob({1,2,3,1}, 4); }
+static void f2(void) { rob({2,7,9,3,1}, 11); }
+static void f3(void) { rob({2,1,1,2}, 3); }
+static void f4(void) { rob({0,0,0}, 0); }
+static void f5(void) { rob({1,2,2,1}, 3); }
+static void f6(void) { rob({4,4,0,0}, 4); }
+static void f7(void) { rob({1,3,1,3,100}, 103); }
+static void f8(void) { rob({2,3,2}, 3); }
+static void f9(void) { rob({4,1,2,7,5,3,1}, 14); }
+static void f10(void) { rob({1,2,3,4,5,1,2,3,4,5}, 16); }
+static void f11(void) { rob({1,7,9,4}, 11); }
+static void f12(void) { rob({94,40,49,65,21,21,106,80,92,81,679,4,61,6,237,12,72,74,29,95,265,35,47,1,61,397,52,72,37,51,1,81,45,435,7,36,57,86,81,72}, 2926); }
 
-std::vector<void (*)(void)> examples {
+static std::vector<void (*)(void)> examples {
     f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12
 };
 

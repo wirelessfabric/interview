@@ -243,11 +243,11 @@ void rotateRight(uint64_t val, int k) {
     rotateRight(solution.num2list(val), k);
 }
 
-void f1(void) { rotateRight(12345, 2); }
-void f2(void) { rotateRight(new ListNode(0, new ListNode(1, new ListNode(2))), 4); }
-void f3(void) { rotateRight(12, 1); }
-void f4(void) { rotateRight(12, 2); }
-void f5(void) { rotateRight(12345, 3); }
+static void f1(void) { rotateRight(12345, 2); }
+static void f2(void) { rotateRight(new ListNode(0, new ListNode(1, new ListNode(2))), 4); }
+static void f3(void) { rotateRight(12, 1); }
+static void f4(void) { rotateRight(12, 2); }
+static void f5(void) { rotateRight(12345, 3); }
 
 void sortList(ListNode* head) {
     std::cout << "Example " << counter++ << " sortList" << std::endl;
@@ -266,12 +266,12 @@ void sortList(uint64_t val) {
     sortList(solution.num2list(val));
 }
 
-void f6(void) { sortList(46315); }
-void f7(void) { sortList(352); }
-void f8(void) { sortList(72); }
-void f9(void) { sortList(12); }
-void f10(void) { sortList(new ListNode(4, new ListNode(3, new ListNode(1, new ListNode(12, new ListNode(5)))))); }
-void f11(void) { sortList(new ListNode(4, new ListNode(19, new ListNode(14, new ListNode(5, new ListNode(-3, new ListNode(1, new ListNode(8, new ListNode(5, new ListNode(11, new ListNode(15))))))))))); }
+static void f6(void) { sortList(46315); }
+static void f7(void) { sortList(352); }
+static void f8(void) { sortList(72); }
+static void f9(void) { sortList(12); }
+static void f10(void) { sortList(new ListNode(4, new ListNode(3, new ListNode(1, new ListNode(12, new ListNode(5)))))); }
+static void f11(void) { sortList(new ListNode(4, new ListNode(19, new ListNode(14, new ListNode(5, new ListNode(-3, new ListNode(1, new ListNode(8, new ListNode(5, new ListNode(11, new ListNode(15))))))))))); }
 
 void addTwoNumbers(uint64_t v1, uint64_t v2) {
     std::cout << "Example " << counter++ << " addTwoNumbers" << std::endl;
@@ -290,10 +290,10 @@ void addTwoNumbers(uint64_t v1, uint64_t v2) {
     std::cout << std::endl;
 }
 
-void f12(void) { addTwoNumbers(7243, 563); }
-void f13(void) { addTwoNumbers(0, 0); }
-void f14(void) { addTwoNumbers(9, 1999999999); }
-void f15(void) { addTwoNumbers(3999999999,7); }
+static void f12(void) { addTwoNumbers(7243, 563); }
+static void f13(void) { addTwoNumbers(0, 0); }
+static void f14(void) { addTwoNumbers(9, 1999999999); }
+static void f15(void) { addTwoNumbers(3999999999,7); }
 
 void getRandom(uint64_t v1) {
     std::cout << "Example " << counter++ << " getRandom" << std::endl;
@@ -305,7 +305,7 @@ void getRandom(uint64_t v1) {
     std::cout << "result = " << result << std::endl;
 }
 
-void f16(void) { getRandom(12345); }
+static void f16(void) { getRandom(12345); }
 
 void mergeKLists(const std::vector<int>& nums) {
     std::cout << "Example " << counter++ << " getRandom" << std::endl;
@@ -320,7 +320,7 @@ void mergeKLists(const std::vector<int>& nums) {
     solution.release(result);
 }
 
-void f17(void) { mergeKLists({ 145, 134, 26 }); }
+static void f17(void) { mergeKLists({ 145, 134, 26 }); }
 
 void hasCylce(ListNode* head) {
     std::cout << "Example " << counter++ << " sortList" << std::endl;
@@ -336,9 +336,9 @@ void hasCycle(uint64_t val) {
     hasCylce(solution.num2list(val));
 }
 
-void f18(void) { hasCycle(12345); }
+static void f18(void) { hasCycle(12345); }
 
-std::vector<void (*)(void)> examples {
+static std::vector<void (*)(void)> examples {
     f18
 };
 

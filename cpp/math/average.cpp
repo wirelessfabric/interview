@@ -29,7 +29,7 @@ double average(T a, T b) {
 
 template<typename T>
 requires std::is_integral_v<T>
-void example(T a, T b, double target) {
+static void example(T a, T b, double target) {
     static auto counter = 1;
     std::cout << "Example " << counter++ << ": ";
     std::cout << "a = " << a << " b = " << b << " target = " << target;
@@ -42,11 +42,11 @@ void example(T a, T b, double target) {
         std::cout << " fail" << std::endl;
 }
 
-void f1(void) { example(1, 2, 1.5); }
-void f2(void) { example(100, 23, 61.5); }
-void f3(void) { long long n = (1LL << 53) + 1; example(n, n, 9007199254740993); }
+static void f1(void) { example(1, 2, 1.5); }
+static void f2(void) { example(100, 23, 61.5); }
+static void f3(void) { long long n = (1LL << 53) + 1; example(n, n, 9007199254740993); }
 
-std::vector<void (*)(void)> examples {
+static std::vector<void (*)(void)> examples {
     f1, f2, f3
 };
 

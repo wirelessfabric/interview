@@ -21,7 +21,7 @@ public:
     }
 };
 
-void example(const std::vector<int> &nums, int k) {
+static void example(const std::vector<int> &nums, int k) {
     static auto counter = 1;
     std::cout << "Example " << counter++ << std::endl;
     Solution solution;
@@ -34,13 +34,13 @@ void example(const std::vector<int> &nums, int k) {
     std::cout << "result = " << result << std::endl;
 }
 
-void f1(void) { example({3,1,4,1,5}, 2); }
-void f2(void) { example({1,2,3,4,5}, 1); }
-void f3(void) { example({1,3,1,5,4}, 0); }
-void f4(void) { example({1,2,4,4,3,3,0,9,2,3}, 3); }
-void f5(void) { example({-1,-2,-3}, 1); }
+static void f1(void) { example({3,1,4,1,5}, 2); }
+static void f2(void) { example({1,2,3,4,5}, 1); }
+static void f3(void) { example({1,3,1,5,4}, 0); }
+static void f4(void) { example({1,2,4,4,3,3,0,9,2,3}, 3); }
+static void f5(void) { example({-1,-2,-3}, 1); }
 
-std::vector<void (*)(void)> examples {
+static std::vector<void (*)(void)> examples {
     f1, f2, f3, f4, f5
 };
 

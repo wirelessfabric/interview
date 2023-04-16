@@ -66,10 +66,10 @@ void f(const std::string &arg) {
     std::cout << "result = {" << result << "}" << std::endl;
 }
 
-void f1(void) { f("bcabc"); }
-void f2(void) { f("cbacdcbc"); }
+static void f1(void) { f("bcabc"); }
+static void f2(void) { f("cbacdcbc"); }
 
-std::vector<void (*)(void)> examples {
+static std::vector<void (*)(void)> examples {
     f1, f2
 };
 

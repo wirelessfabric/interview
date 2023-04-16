@@ -115,11 +115,11 @@ void fib(const int n) {
 }
 
 void f0(void) { fib_constexpr_templated_recursion(); }
-void f1(void) { fib(45); }
-void f2(void) { fib(46); }
-void f3(void) { fib(47); }
+static void f1(void) { fib(45); }
+static void f2(void) { fib(46); }
+static void f3(void) { fib(47); }
 
-std::vector<void (*)(void)> examples {
+static std::vector<void (*)(void)> examples {
     f1, f2, f3
 };
 

@@ -43,7 +43,7 @@ public:
     }
 };
 
-void example(const std::string &instructions) {
+static void example(const std::string &instructions) {
     static auto counter = 1;
     std::cout << "Example " << counter++ << std::endl;
     Solution solution;

@@ -98,7 +98,7 @@ void print(const std::map<K,V> &m) {
     std::cout << "]";
 }
 
-void example(const std::vector<int> &arg, int expect) {
+static void example(const std::vector<int> &arg, int expect) {
     static auto counter = 1;
     std::cout << "Example " << counter++ << std::endl;
     Solution solution;
@@ -112,11 +112,11 @@ void example(const std::vector<int> &arg, int expect) {
         std::cout << "expect = " << expect << std::endl;
 }
 
-void f1(void) { example({1,2,3}, 1); }
-void f2(void) { example({2,2,2,3,3}, 2); }
-void f3(void) { example({1, 1000000000}, 1); }
+static void f1(void) { example({1,2,3}, 1); }
+static void f2(void) { example({2,2,2,3,3}, 2); }
+static void f3(void) { example({1, 1000000000}, 1); }
 
-std::vector<void (*)(void)> examples {
+static std::vector<void (*)(void)> examples {
     f1, f2, f3
 };
 

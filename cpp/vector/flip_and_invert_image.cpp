@@ -31,10 +31,10 @@ void flipAndInvertImage(const std::vector<std::vector<int>> &arg) {
     print(result, "result");
 }
 
-void f1(void) { flipAndInvertImage({{1,1,0},{1,0,1},{0,0,0}}); }
-void f2(void) { flipAndInvertImage({{1,1,0,0},{1,0,0,1},{0,1,1,1},{1,0,1,0}});}
+static void f1(void) { flipAndInvertImage({{1,1,0},{1,0,1},{0,0,0}}); }
+static void f2(void) { flipAndInvertImage({{1,1,0,0},{1,0,0,1},{0,1,1,1},{1,0,1,0}});}
 
-std::vector<void (*)(void)> examples {
+static std::vector<void (*)(void)> examples {
     f1, f2
 };
 

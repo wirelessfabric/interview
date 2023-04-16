@@ -279,12 +279,12 @@ void atoui(const char* s, unsigned long expect) {
         std::cout << "expect = " << expect << std::endl;
 }
 
-void f1(void) { atoui("100", 100); }
-void f2(void) { atoui("9999", 9999); }
-void f3(void) { atoui("1234567890", 1234567890); }
-void f4(void) { atoui("0987654321", 987654321); }
+static void f1(void) { atoui("100", 100); }
+static void f2(void) { atoui("9999", 9999); }
+static void f3(void) { atoui("1234567890", 1234567890); }
+static void f4(void) { atoui("0987654321", 987654321); }
 
-std::vector<void (*)(void)> examples {
+static std::vector<void (*)(void)> examples {
     f1, f2, f3, f4
 };
 

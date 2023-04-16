@@ -57,7 +57,7 @@ public:
     }
 };
 
-void example(const std::vector<int> &arg, int P, int expect) {
+static void example(const std::vector<int> &arg, int P, int expect) {
     static auto counter = 1;
     std::cout << "Example " << counter++ << std::endl;
     auto tokens(arg);
@@ -70,12 +70,12 @@ void example(const std::vector<int> &arg, int P, int expect) {
         std::cout << "expect = " << expect << std::endl;
 }
 
-void f1(void) { example({100}, 50, 0); }
-void f2(void) { example({100,200}, 150, 1); }
-void f3(void) { example({100,200,300,400}, 200, 2); }
-void f4(void) { example({300,100,200,400}, 200, 2); }
+static void f1(void) { example({100}, 50, 0); }
+static void f2(void) { example({100,200}, 150, 1); }
+static void f3(void) { example({100,200,300,400}, 200, 2); }
+static void f4(void) { example({300,100,200,400}, 200, 2); }
 
-std::vector<void (*)(void)> examples {
+static std::vector<void (*)(void)> examples {
     f1, f2, f3, f4
 };
 

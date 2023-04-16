@@ -23,7 +23,7 @@ public:
     }
 };
 
-void example(int n) {
+static void example(int n) {
     static auto counter = 1;
     std::cout << "getMaximumGenerated" << counter++ << std::endl;
     std::cout << "n = " << n << std::endl;
@@ -36,11 +36,11 @@ void example(int n) {
     std::cout << "result = " << result << std::endl;
 }
 
-void f1(void) { example(7); }
-void f2(void) { example(2); }
-void f3(void) { example(3); }
+static void f1(void) { example(7); }
+static void f2(void) { example(2); }
+static void f3(void) { example(3); }
 
-std::vector<void (*)(void)> examples {
+static std::vector<void (*)(void)> examples {
     f1, f2, f3
 };
 

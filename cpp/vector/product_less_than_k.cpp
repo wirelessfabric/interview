@@ -75,7 +75,7 @@ public:
     }
 };
 
-void example(std::vector<int> &nums, int k) {
+static void example(std::vector<int> &nums, int k) {
     static auto counter = 1;
     std::cout << "Example " << counter++ << std::endl;
     Solution solution;

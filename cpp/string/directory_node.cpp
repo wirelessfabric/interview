@@ -148,20 +148,20 @@ void simplifyPath(std::string path) {
     std::cout << "result = " << result << std::endl;
 }
 
-void f1(void) { simplifyPath("/"); }
-void f2(void) { simplifyPath("//"); }
-void f3(void) { simplifyPath("//a"); }
-void f4(void) { simplifyPath("/a"); }
-void f5(void) { simplifyPath("/a/b"); }
-void f6(void) { simplifyPath("/a//b"); }
-void f7(void) { simplifyPath("/a//b!/c"); }
-void f8(void) { simplifyPath("/a/b/."); }
-void f9(void) { simplifyPath("/a/b/./.."); }
-void f10(void) { simplifyPath("/home/"); }
-void f11(void) { simplifyPath("/home/foo/.ssh/../.ssh2/authorized_keys/"); }
-void f12(void) { simplifyPath("/.///../JY"); }
+static void f1(void) { simplifyPath("/"); }
+static void f2(void) { simplifyPath("//"); }
+static void f3(void) { simplifyPath("//a"); }
+static void f4(void) { simplifyPath("/a"); }
+static void f5(void) { simplifyPath("/a/b"); }
+static void f6(void) { simplifyPath("/a//b"); }
+static void f7(void) { simplifyPath("/a//b!/c"); }
+static void f8(void) { simplifyPath("/a/b/."); }
+static void f9(void) { simplifyPath("/a/b/./.."); }
+static void f10(void) { simplifyPath("/home/"); }
+static void f11(void) { simplifyPath("/home/foo/.ssh/../.ssh2/authorized_keys/"); }
+static void f12(void) { simplifyPath("/.///../JY"); }
 
-std::vector<void (*)(void)> examples {
+static std::vector<void (*)(void)> examples {
     /*f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f10, */ f12
 };
 

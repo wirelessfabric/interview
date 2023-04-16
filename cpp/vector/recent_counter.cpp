@@ -93,7 +93,7 @@ public:
     }
 };
 
-void example(std::vector<std::string> &op, std::vector<std::vector<int>> &data) {
+static void example(std::vector<std::string> &op, std::vector<std::vector<int>> &data) {
     static auto counter = 1;
     std::cout << "Example " << counter++ << std::endl;
     Solution solution;

@@ -58,7 +58,7 @@ public:
     }
 };
 
-void example(const std::vector<std::vector<int>> &arg) {
+static void example(const std::vector<std::vector<int>> &arg) {
     static auto counter = 1;
     std::cout << "Example " << counter++ << std::endl;
     auto buildings(arg);
@@ -68,11 +68,11 @@ void example(const std::vector<std::vector<int>> &arg) {
     print(result, "result");
 }
 
-void f1(void) { example({{2,9,10},{3,7,15},{5,12,12},{15,20,10},{19,24,8}}); }
-void f2(void) { example({{0,2147483647,2147483647}}); }
-void f3(void) { example({{1,2,1},{2147483646,2147483647,2147483647}}); }
+static void f1(void) { example({{2,9,10},{3,7,15},{5,12,12},{15,20,10},{19,24,8}}); }
+static void f2(void) { example({{0,2147483647,2147483647}}); }
+static void f3(void) { example({{1,2,1},{2147483646,2147483647,2147483647}}); }
 
-std::vector<void (*)(void)> examples {
+static std::vector<void (*)(void)> examples {
     f1, f2, f3
 };
 

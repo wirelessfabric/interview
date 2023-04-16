@@ -21,7 +21,7 @@ public:
     }
 };
 
-void example(std::string &s) {
+static void example(std::string &s) {
     static auto counter = 1;
     std::cout << "Example " << counter++ << std::endl;
     Solution solution;

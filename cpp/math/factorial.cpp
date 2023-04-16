@@ -65,17 +65,17 @@ void factorial(long n, long (*f)(long)) {
 }
 
 void f0(void) { factorial(20, cpp23_deducing_lambda); }
-void f1(void) { factorial(20, explicit_self_parameter_lambda); }
-void f2(void) { factorial(20, std_function_lambda); }
-void f3(void) { factorial(20, recursive_function); }
-void f4(void) { factorial(12, recursive_function); }
-void f5(void) { factorial(5,  recursive_function); }
-void f6(void) { factorial(20, constexpr_recursive_function); }
-void f7(void) { factorial(12, constexpr_recursive_function); }
-void f8(void) { factorial(5,  constexpr_recursive_function); }
-void f9(void) { factorial_constexpr_templated_recursion(); }
+static void f1(void) { factorial(20, explicit_self_parameter_lambda); }
+static void f2(void) { factorial(20, std_function_lambda); }
+static void f3(void) { factorial(20, recursive_function); }
+static void f4(void) { factorial(12, recursive_function); }
+static void f5(void) { factorial(5,  recursive_function); }
+static void f6(void) { factorial(20, constexpr_recursive_function); }
+static void f7(void) { factorial(12, constexpr_recursive_function); }
+static void f8(void) { factorial(5,  constexpr_recursive_function); }
+static void f9(void) { factorial_constexpr_templated_recursion(); }
 
-std::vector<void (*)(void)> examples {
+static std::vector<void (*)(void)> examples {
     f0, f1, f2, f3, f4, f5, f6, f7, f8, f9
 };
 

@@ -30,7 +30,7 @@ public:
     }
 };
 
-void example(const std::vector<int> &arg, int start, bool expect) {
+static void example(const std::vector<int> &arg, int start, bool expect) {
     static auto counter = 1;
     std::cout << "Example " << counter++ << std::endl;
     auto arr(arg);
@@ -43,9 +43,9 @@ void example(const std::vector<int> &arg, int start, bool expect) {
         std::cout << "expect = " << expect << std::endl;
 }
 
-void f1(void) { example({4,2,3,0,3,1,2}, 5, true); }
-void f2(void) { example({4,2,3,0,3,1,2}, 0, true); }
-void f3(void) { example({3,0,2,1,2}, 2, false); }
+static void f1(void) { example({4,2,3,0,3,1,2}, 5, true); }
+static void f2(void) { example({4,2,3,0,3,1,2}, 0, true); }
+static void f3(void) { example({3,0,2,1,2}, 2, false); }
 
 std::vector<void(*)(void)> examples {
     f1, f2, f3

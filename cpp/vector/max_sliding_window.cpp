@@ -168,7 +168,7 @@ public:
     }
 };
 
-void example(const std::vector<int> &arg, int k) {
+static void example(const std::vector<int> &arg, int k) {
     static auto counter = 1;
     std::cout << "Example " << counter++ << std::endl;
     auto nums(arg);
@@ -179,18 +179,18 @@ void example(const std::vector<int> &arg, int k) {
     print(result, "result");
 }
 
-void f1(void) { example({1,3,-1,-3,5,3,6,7}, 3); }
-void f2(void) { example({1}, 1); }
-void f3(void) { example({1,-1}, 1); }
-void f4(void) { example({9,11}, 2); }
-void f5(void) { example({4,-2}, 2); }
-void f6(void) { example({7,2,4}, 2); }
-void f7(void) { example({1,3,1,2,0,5}, 3); }
-void f8(void) { example({9,10,9,-7,-4,-8,2,-6}, 5); }
-void f9(void) { example({1,3,-1,-3,5,3,6,7}, 3); }
+static void f1(void) { example({1,3,-1,-3,5,3,6,7}, 3); }
+static void f2(void) { example({1}, 1); }
+static void f3(void) { example({1,-1}, 1); }
+static void f4(void) { example({9,11}, 2); }
+static void f5(void) { example({4,-2}, 2); }
+static void f6(void) { example({7,2,4}, 2); }
+static void f7(void) { example({1,3,1,2,0,5}, 3); }
+static void f8(void) { example({9,10,9,-7,-4,-8,2,-6}, 5); }
+static void f9(void) { example({1,3,-1,-3,5,3,6,7}, 3); }
 
 
-std::vector<void (*)(void)> examples {
+static std::vector<void (*)(void)> examples {
     f1, f2, f3, f4, f5, f6, f7, f8, f9
 };
 

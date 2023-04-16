@@ -65,17 +65,17 @@ void rotateRight(const std::vector<int> &arg, int k) {
     std::cout << std::endl;
 }
 
-void f1(void) { rotateRight({-1,0,3,5,9,12}, 9); }
-void f2(void) { rotateRight({-1,0,3,5,9,12}, 2); }
-void f3(void) { rotateRight({-1,0,3,5,9,12}, 1); }
-void f4(void) { rotateRight({-1,0,3,5,9,12}, 0); }
-void f5(void) { rotateRight({-1,0,3,5,9,12}, 3); }
-void f6(void) { rotateRight({-1,0,3,5,9,12}, 5); }
-void f7(void) { rotateRight({-1,0,3,5,9,12}, 12); }
-void f8(void) { rotateRight({5}, 5); }
-void f9(void) { rotateRight({1,2,3,4,5,6,7}, 3); }
+static void f1(void) { rotateRight({-1,0,3,5,9,12}, 9); }
+static void f2(void) { rotateRight({-1,0,3,5,9,12}, 2); }
+static void f3(void) { rotateRight({-1,0,3,5,9,12}, 1); }
+static void f4(void) { rotateRight({-1,0,3,5,9,12}, 0); }
+static void f5(void) { rotateRight({-1,0,3,5,9,12}, 3); }
+static void f6(void) { rotateRight({-1,0,3,5,9,12}, 5); }
+static void f7(void) { rotateRight({-1,0,3,5,9,12}, 12); }
+static void f8(void) { rotateRight({5}, 5); }
+static void f9(void) { rotateRight({1,2,3,4,5,6,7}, 3); }
 
-std::vector<void (*)(void)> examples {
+static std::vector<void (*)(void)> examples {
     f1, f2, f3, f4, f5, f6, f7, f8, f9
 };
 

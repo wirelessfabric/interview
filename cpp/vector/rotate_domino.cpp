@@ -127,7 +127,7 @@ public:
     }
 };
 
-void example(const std::vector<int> &argA, const std::vector<int> &argB, int expect) {
+static void example(const std::vector<int> &argA, const std::vector<int> &argB, int expect) {
     static auto counter = 1;
     std::cout << "Example " << counter++ << std::endl;
     Solution solution;
@@ -144,12 +144,12 @@ void example(const std::vector<int> &argA, const std::vector<int> &argB, int exp
         std::cout << "expect = " << expect << std::endl;
 }
 
-void f1(void) { example({2,1,2,4,2,2}, {5,2,6,2,3,2}, 2); }
-void f2(void) { example({3,5,1,2,3}, {3,6,3,3,4}, -1); }
-void f3(void) { example({1,1,1,1,1,1,1,1}, {1,1,1,1,1,1,1,1}, 0); }
-void f4(void) { example({1,2,3,4,6}, {6,6,6,6,5}, 1); }
+static void f1(void) { example({2,1,2,4,2,2}, {5,2,6,2,3,2}, 2); }
+static void f2(void) { example({3,5,1,2,3}, {3,6,3,3,4}, -1); }
+static void f3(void) { example({1,1,1,1,1,1,1,1}, {1,1,1,1,1,1,1,1}, 0); }
+static void f4(void) { example({1,2,3,4,6}, {6,6,6,6,5}, 1); }
 
-std::vector<void (*)(void)> examples {
+static std::vector<void (*)(void)> examples {
     f1, f2, f3, f4
 };
 

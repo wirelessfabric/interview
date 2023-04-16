@@ -36,7 +36,7 @@ public:
     }
 };
 
-void example(std::vector<int>& nums) {
+static void example(std::vector<int>& nums) {
     Solution solution;
     std::cout << "nums ";
     print(nums);

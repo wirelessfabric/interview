@@ -107,21 +107,21 @@ void f(const std::string &arg1, const std::string &arg2) {
         std::cout << "false" << std::endl;
 }
 
-void f1(void) { f("ab", "ba"); }
-void f2(void) { f("ab", "ab"); }
-void f3(void) { f("aa", "aa"); }
-void f4(void) { f("aaaaaaabc", "aaaaaaacb"); }
-void f5(void) { f("", "aa"); }
-void f6(void) { f("abab", "abab"); }
-void f7(void) { f("abcd", "abcd"); }
-void f8(void) { f("abcd", "badc"); }
-void f9(void) { f("abcd", "bacd"); }
-void f10(void) { f("abcd", "abdc"); }
-void f11(void) { f("abab", "abab"); }
-void f12(void) { f("a", "a"); }
-void f13(void) { f("ab", "babbb"); }
+static void f1(void) { f("ab", "ba"); }
+static void f2(void) { f("ab", "ab"); }
+static void f3(void) { f("aa", "aa"); }
+static void f4(void) { f("aaaaaaabc", "aaaaaaacb"); }
+static void f5(void) { f("", "aa"); }
+static void f6(void) { f("abab", "abab"); }
+static void f7(void) { f("abcd", "abcd"); }
+static void f8(void) { f("abcd", "badc"); }
+static void f9(void) { f("abcd", "bacd"); }
+static void f10(void) { f("abcd", "abdc"); }
+static void f11(void) { f("abab", "abab"); }
+static void f12(void) { f("a", "a"); }
+static void f13(void) { f("ab", "babbb"); }
 
-std::vector<void (*)(void)> examples {
+static std::vector<void (*)(void)> examples {
     f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13
 };
 

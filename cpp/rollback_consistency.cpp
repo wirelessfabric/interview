@@ -251,7 +251,7 @@ auto create_database(const std::vector<account_balance> &initial_balances) {
     return db;
 }
 
-void example(const std::vector<account_balance> &initial_balances, const std::vector<transaction> &transactions) {
+static void example(const std::vector<account_balance> &initial_balances, const std::vector<transaction> &transactions) {
     static auto counter = 1;
     std::cout << "Example " << counter++ << std::endl;
     std::cout << std::endl;
@@ -261,14 +261,14 @@ void example(const std::vector<account_balance> &initial_balances, const std::ve
     db.settle();
 }
 
-void f1(void) { example({{1,5},{2,10},{3,15}}, {{{1,2,3},{3,1,2}}}); }
-void f2(void) { example({{1,5},{2,10},{3,15}}, {{{1,2,3},{3,1,2}}, {{2,1,11}}}); }
-void f3(void) { example({{1,5},{2,10},{3,15}}, {{{2,1,11}}}); }
-void f4(void) { example({{1,5},{2,10},{3,15}}, {{{2,1,11}},{{1,2,3},{3,1,2}}}); }
-void f5(void) { example({{1,5},{2,10},{3,15}}, {{{2,1,11}},{{1,2,3},{3,1,2}}}); }
-void f6(void) { example({{1,10},{2,5}}, {{{1,2,5}}}); }
+static void f1(void) { example({{1,5},{2,10},{3,15}}, {{{1,2,3},{3,1,2}}}); }
+static void f2(void) { example({{1,5},{2,10},{3,15}}, {{{1,2,3},{3,1,2}}, {{2,1,11}}}); }
+static void f3(void) { example({{1,5},{2,10},{3,15}}, {{{2,1,11}}}); }
+static void f4(void) { example({{1,5},{2,10},{3,15}}, {{{2,1,11}},{{1,2,3},{3,1,2}}}); }
+static void f5(void) { example({{1,5},{2,10},{3,15}}, {{{2,1,11}},{{1,2,3},{3,1,2}}}); }
+static void f6(void) { example({{1,10},{2,5}}, {{{1,2,5}}}); }
 
-std::vector<void (*)(void)> examples {
+static std::vector<void (*)(void)> examples {
     f1, f2, f3, f4, f5, f6
 };
 
