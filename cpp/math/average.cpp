@@ -12,7 +12,6 @@
 #include "common.h"
 #include "print.h"
 #include "speedup.h"
-#include <cmath>
 
 // https://www.youtube.com/watch?v=rUt9xcPyKEY @ 1:00
 

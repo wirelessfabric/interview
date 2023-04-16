@@ -20,6 +20,7 @@
 #include <climits>
 #include <cstring>
 #include <cstdint>
+#include <cmath>
 #include <iomanip>
 
 #endif // _COMMON_H_
