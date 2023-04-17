@@ -20,11 +20,14 @@
 
 #include "common.h"
 #include "print.h"
+#include "fill.h"
 #include "speedup.h"
 
 #if defined(__x86_64__) || defined(__i386__)
 #include <emmintrin.h>
 #endif
+
+static bool debug = true;
 
 static void convolve_1d_naive(const float *input, int n,
                               const float *kernel, int m,
@@ -127,35 +130,6 @@ static void convolve_simd(float *inSig, size_t M,
 #endif
 #endif
 
-static void fill_sin(float* v, int n) {
-    assert(v && n > 0);
-    auto w{ 0.f };
-    const auto df{ (float)(2.0 * std::numbers::pi) / n };
-    do { *v++ = sinf(w); w += df; } while (--n);
-}
-
-static void fill_gaussian(float* v, float f, int n) {
-    assert(v && f > 0 && n > 0);
-    const auto tau{ (float)n / ((float)(2.0 * std::numbers::pi) * f) };
-    const auto dt{ 1.f / f };
-    auto t{ -dt * (float)n * 0.5f };
-    do {
-        const auto k{ t / tau };
-        *v++ = expf(-k * k);
-        t += dt;
-    } while (--n);
-}
-
-static void reverse(float *v, int n) {
-    assert(v && n > 0);
-    auto tail{ &v[n - 1] };
-    while (v < tail) {
-        auto f{ *v };
-        *v++ = *tail;
-        *tail-- = f;
-    }
-}
-
 static void example(void (*f)(const float*, int, const float*, int, float*),
                     float *input, int n,
                     float *kernel, int m,
@@ -165,7 +139,10 @@ static void example(void (*f)(const float*, int, const float*, int, float*),
     std::cout << "Example " << counter++ << ": ";
 
     f(input, n, kernel, m, output);
+
     std::cout << std::endl;
+    if (debug)
+        print(output, n, "output");
 }
 
 // Sample Rate = Sampling Frequency = 44100 Hz
@@ -173,24 +150,43 @@ static void example(void (*f)(const float*, int, const float*, int, float*),
 // Frame Size = 512
 // Frame Duration = 512 / 44100 = ~11.61 ms
 
-#define F 44100
 #define N 512
-#define M 16
+static float input[N];
+static float output[N];
 
-static float input[N], kernel[M], output[N];
+#define F 44100
+#define G 15
+static float gaussian[G];
 
-static void f1(void) { example(convolve_1d_naive, input, N, kernel, M, output); }
+#define S 8
+static float sine[S];
+
+#define C 4
+static float cosine[C];
+
+static void f1(void) { example(convolve_1d_naive, input, N, gaussian, G, output); }
+static void f2(void) { example(convolve_1d_naive, input, N, sine, S, output); }
+static void f3(void) { example(convolve_1d_naive, input, N, cosine, C, output); }
 
 static std::vector<void (*)(void)> examples {
-    f1
+    f1, f2, f3
 };
 
 int main() {
     fill_sin(input, N);
-    fill_gaussian(kernel, F, M);
-    print(kernel, M, "kernel  ");
-    reverse(kernel, M);
-    print(kernel, M, "reversed");
+    if (debug)
+        print(input, N, "input");
+
+    fill_gaussian(gaussian, F, G);
+    print(gaussian, G, "gaussian kernel");
+
+    fill_sin(sine, S);
+    reverse(sine, S);
+    print(sine, S, "sine kernel (reversed)");
+
+    fill_cos(cosine, C);
+    reverse(cosine, C);
+    print(cosine, C, "cosine kernel (reversed)");
 
     for (const auto& f : examples)
         f();
