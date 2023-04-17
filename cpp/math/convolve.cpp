@@ -154,7 +154,7 @@ static void example(void (*f)(const float*, int, const float*, int, float*),
 static float input[N];
 static float output[N];
 
-#define F 44100
+#define FREQ 44100
 #define G 15
 static float gaussian[G];
 
@@ -177,7 +177,7 @@ int main() {
     if (debug)
         print(input, N, "input");
 
-    fill_gaussian(gaussian, F, G);
+    fill_gaussian(gaussian, G, FREQ);
     print(gaussian, G, "gaussian kernel");
 
     fill(sine, S, sinf);
