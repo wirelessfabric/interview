@@ -11,18 +11,11 @@ T slice(int n) {
     return pie / static_cast<T>(n);
 }
 
-static void fill_sin(float* v, int n) {
-    assert(v && n > 0);
+static void fill(float* v, int n, float (*f)(float)) {
+    assert(v && f && n > 0);
     auto w{ 0.f };
     const auto df{ slice<float>(n) };
-    do { *v++ = sinf(w); w += df; } while (--n);
-}
-
-static void fill_cos(float* v, int n) {
-    assert(v && n > 0);
-    auto w{ 0.f };
-    const auto df{ slice<float>(n) };
-    do { *v++ = cosf(w); w += df; } while (--n);
+    do { *v++ = f(w); w += df; } while (--n);
 }
 
 static void fill_gaussian(float* v, float f, int n) {

@@ -27,7 +27,7 @@
 #include <emmintrin.h>
 #endif
 
-static bool debug = true;
+static bool debug = false;
 
 static void convolve_1d_naive(const float *input, int n,
                               const float *kernel, int m,
@@ -173,18 +173,18 @@ static std::vector<void (*)(void)> examples {
 };
 
 int main() {
-    fill_sin(input, N);
+    fill(input, N, sinf);
     if (debug)
         print(input, N, "input");
 
     fill_gaussian(gaussian, F, G);
     print(gaussian, G, "gaussian kernel");
 
-    fill_sin(sine, S);
+    fill(sine, S, sinf);
     reverse(sine, S);
     print(sine, S, "sine kernel (reversed)");
 
-    fill_cos(cosine, C);
+    fill(cosine, C, cosf);
     reverse(cosine, C);
     print(cosine, C, "cosine kernel (reversed)");
 
