@@ -32,13 +32,11 @@ static void convolve_1d_naive(const float *input, int n,
 {
     assert(input && kernel && output && m < n);
     const auto size{ n - m + 1 };
-    for (auto i = 0; i < size; ++i)
-    {
+    for (auto i = 0; i < size; ++i) {
         auto sum{ 0.f };
-        for (auto j = 0; j < m; ++j)
-        {
+        for (auto j = 0; j < m; ++j) {
             const auto s = input[i + j];
-            const auto k = kernel[m - 1 - j];
+            const auto k = kernel[j];
             sum += s * k;
         }
         output[i] = sum;
@@ -148,6 +146,16 @@ static void fill_gaussian(float* v, float f, int n) {
     } while (--n);
 }
 
+static void reverse(float *v, int n) {
+    assert(v && n > 0);
+    auto tail{ &v[n - 1] };
+    while (v < tail) {
+        auto f{ *v };
+        *v++ = *tail;
+        *tail-- = f;
+    }
+}
+
 static void example(void (*f)(const float*, int, const float*, int, float*),
                     float *input, int n,
                     float *kernel, int m,
@@ -155,6 +163,7 @@ static void example(void (*f)(const float*, int, const float*, int, float*),
 {
     static auto counter = 1;
     std::cout << "Example " << counter++ << ": ";
+
     f(input, n, kernel, m, output);
     std::cout << std::endl;
 }
@@ -179,6 +188,9 @@ static std::vector<void (*)(void)> examples {
 int main() {
     fill_sin(input, N);
     fill_gaussian(kernel, F, M);
+    print(kernel, M, "kernel  ");
+    reverse(kernel, M);
+    print(kernel, M, "reversed");
 
     for (const auto& f : examples)
         f();

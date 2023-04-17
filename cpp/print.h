@@ -22,6 +22,18 @@ void print_end(const char* text = nullptr) {
 }
 
 template<typename T>
+void print(T *v, int n, const char* text = nullptr) {
+    assert(v && n > 0);
+    print_begin(text);
+    do {
+        std::cout << *v++;
+        if (--n)
+            std::cout << ", ";
+    } while (n);
+    print_end(text);
+}
+
+template<typename T>
 void print(const std::vector<T>& v, const char* text = nullptr) {
     print_begin(text);
     int n = 0;
