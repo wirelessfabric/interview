@@ -154,7 +154,7 @@ static void example(void (*f)(const float*, int, const float*, int, float*),
 static float input[N];
 static float output[N];
 
-#define FREQ 44100
+#define FREQ 44100.f
 #define G 15
 static float gaussian[G];
 
@@ -173,18 +173,18 @@ static std::vector<void (*)(void)> examples {
 };
 
 int main() {
-    fill(input, N, sinf);
+    fill(input, sinf, N);
     if (debug)
         print(input, N, "input");
 
-    fill_gaussian(gaussian, G, FREQ);
+    fill_gaussian(gaussian, FREQ, G);
     print(gaussian, G, "gaussian kernel");
 
-    fill(sine, S, sinf);
+    fill(sine, sinf, S);
     reverse(sine, S);
     print(sine, S, "sine kernel (reversed)");
 
-    fill(cosine, C, cosf);
+    fill(cosine, cosf, C);
     reverse(cosine, C);
     print(cosine, C, "cosine kernel (reversed)");
 

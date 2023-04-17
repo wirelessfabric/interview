@@ -11,14 +11,14 @@ T slice(int n) {
     return pie / static_cast<T>(n);
 }
 
-static void fill(float* v, int n, float (*f)(float)) {
+static void fill(float* v, float (*f)(float), int n) {
     assert(v && f && n > 0);
     auto w{ 0.f };
     const auto df{ slice<float>(n) };
     do { *v++ = f(w); w += df; } while (--n);
 }
 
-static void fill_gaussian(float* v, int n, float fs) {
+static void fill_gaussian(float* v, float fs, int n) {
     assert(v && fs > 0 && n > 0);
     const auto tau{ (float)n / ((float)(2.0 * std::numbers::pi) * fs) };
     const auto dt{ 1.f / fs };
