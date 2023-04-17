@@ -34,7 +34,7 @@ static void convolve_1d_naive(const float *input, int n,
     const auto size{ n - m + 1 };
     for (auto i = 0; i < size; ++i)
     {
-        float sum{ 0 };
+        auto sum{ 0.f };
         for (auto j = 0; j < m; ++j)
         {
             const auto s = input[i + j];
