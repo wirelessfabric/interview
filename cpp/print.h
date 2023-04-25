@@ -105,8 +105,8 @@ void print(const std::map<K,V>& m, const char* text = nullptr) {
     print_end(text);
 }
 
-void print(std::unordered_map<int, int>& map) {
-    for (auto &[key, value] : map)
+void print(const std::unordered_map<int, int>& map) {
+    for (const auto &[key, value] : map)
         std::cout << key << " = " << value << std::endl;
 }
 
