@@ -153,6 +153,7 @@ static void example(void (*f)(const float*, int, const float*, int, float*),
 #define N 512
 static float input[N];
 static float output[N];
+static float random[N];
 
 #define FREQ 44100.f
 #define G 15
@@ -167,15 +168,23 @@ static float cosine[C];
 static void f1(void) { example(convolve_1d_naive, input, N, gaussian, G, output); }
 static void f2(void) { example(convolve_1d_naive, input, N, sine, S, output); }
 static void f3(void) { example(convolve_1d_naive, input, N, cosine, C, output); }
+static void f4(void) { example(convolve_1d_naive, random, N, gaussian, G, output); }
 
 static std::vector<void (*)(void)> examples {
-    f1, f2, f3
+    f1, f2, f3, f4
 };
 
-int main() {
+int main(int argc, char** argv) {
+    if (argc > 1 && strcmp(argv[1], "-d") == 0)
+        debug = true;
+
     fill(input, sinf, N);
     if (debug)
         print(input, N, "input");
+
+    fill_random(random, N);
+    if (debug)
+        print(random, N, "random");
 
     fill_gaussian(gaussian, FREQ, G);
     print(gaussian, G, "gaussian kernel");

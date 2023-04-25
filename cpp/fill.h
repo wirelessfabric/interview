@@ -30,6 +30,12 @@ static void fill_gaussian(float* v, float fs, int n) {
     } while (--n);
 }
 
+static void fill_random(float* v, int n) {
+    static std::mt19937 g(std::random_device{}());
+    static std::uniform_real_distribution<float> d;
+    do { *v++ = d(g); } while (--n);
+}
+
 template <typename T>
 static void reverse(T *v, int n) {
     assert(v && n > 0);
