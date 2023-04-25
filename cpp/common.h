@@ -24,6 +24,7 @@
 #include <cmath>
 #include <cassert>
 #include <cmath>
+#include <ctime>
 #include <iomanip>
 
 #endif // _COMMON_H_

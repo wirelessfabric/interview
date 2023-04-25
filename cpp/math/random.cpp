@@ -10,6 +10,9 @@
 // cl /EHsc /std:c++20 /I.. random.cpp
 // cl version 19.35.32215 for x64
 
+// https://www.youtube.com/watch?v=wDj64pSeQ4I
+// Is rand( ) Actually Random?
+
 // https://www.youtube.com/watch?v=N2AM6ixC6LI
 // Fast, High-quality Pseudo-random Numbers for Audio Developers - Roth Michaels - ADC22
 
@@ -26,6 +29,15 @@ void random_std_mt19937(std::vector<float>& v) {
         data = d(e);
 }
 
+// https://www.youtube.com/watch?v=N2AM6ixC6LI @ 11:12
+void random_std_rand_dice_roll(std::vector<float>& v) {
+    struct timespec ts;
+    timespec_get(&ts, TIME_UTC);
+    std::srand(ts.tv_nsec);
+    for (auto& data : v)
+        data = std::rand() % 6u + 1u;
+}
+
 static void example(void (*f)(std::vector<float>&), int n) {
     static auto counter = 1;
     std::cout << "Example " << counter++ << ": ";
@@ -37,9 +49,10 @@ static void example(void (*f)(std::vector<float>&), int n) {
 }
 
 static void f1(void) { example(random_std_mt19937, 10); }
+static void f2(void) { example(random_std_rand_dice_roll, 12); }
 
 static std::vector<void (*)(void)> examples {
-    f1
+    f1, f2
 };
 
 int main() {
