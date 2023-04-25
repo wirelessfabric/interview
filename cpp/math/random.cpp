@@ -16,6 +16,9 @@
 // https://www.youtube.com/watch?v=Gb-1grkVGSg
 // rand Considered Harmful : Stephan T. Lavavej
 
+// https://www.youtube.com/watch?v=4_QO1nm7uJs
+// I Just Wanted a Random Integer! : Cheinan Marks @ CppCon 2016
+
 // https://www.youtube.com/watch?v=6DPkyvkMkk8
 // What C++ Programmers Need to Know about Header ＜random＞ : Walter E. Brown @ CppCon 2016
 
@@ -31,11 +34,10 @@
 
 // https://www.youtube.com/watch?v=N2AM6ixC6LI @ 3:23
 void random_std_mt19937(std::vector<float>& v) {
-    std::random_device r;
-    std::mt19937 e(r());
-    std::uniform_real_distribution<float> d;
+    static std::mt19937 g(std::random_device{}());
+    static std::uniform_real_distribution<float> d;
     for (auto& data : v)
-        data = d(e);
+        data = d(g);
 }
 
 // https://www.youtube.com/watch?v=N2AM6ixC6LI @ 11:12
@@ -45,6 +47,14 @@ void random_std_rand_dice_roll(std::vector<float>& v) {
     std::srand(ts.tv_nsec);
     for (auto& data : v)
         data = std::rand() % 6u + 1u;
+}
+
+// https://www.youtube.com/watch?v=N2AM6ixC6LI @ 12:42
+void random_std_mt19937_dice_roll(std::vector<float>& v) {
+    static std::mt19937 g(std::random_device{}());
+    static std::uniform_real_distribution<float> d(1u, 6u);
+    for (auto& data : v)
+        data = (float)(int)d(g);
 }
 
 static void example(void (*f)(std::vector<float>&), int n) {
@@ -59,9 +69,10 @@ static void example(void (*f)(std::vector<float>&), int n) {
 
 static void f1(void) { example(random_std_mt19937, 10); }
 static void f2(void) { example(random_std_rand_dice_roll, 12); }
+static void f3(void) { example(random_std_mt19937_dice_roll, 12); }
 
 static std::vector<void (*)(void)> examples {
-    f1, f2
+    f1, f2, f3
 };
 
 int main() {
