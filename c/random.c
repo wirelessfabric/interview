@@ -13,6 +13,9 @@
 // https://www.youtube.com/watch?v=wDj64pSeQ4I
 // Is rand( ) Actually Random?
 
+// https://www.youtube.com/watch?v=Gb-1grkVGSg
+// rand Considered Harmful : Stephan T. Lavavej
+
 #include "common.h"
 #ifdef __linux__
 #include <openssl/rand.h>
@@ -25,6 +28,7 @@ int random_seed(int seed) {
 }
 
 // https://www.youtube.com/watch?v=wDj64pSeQ4I @ 2:30
+// https://www.youtube.com/watch?v=Gb-1grkVGSg @ 3:00
 int random_time() {
     srand(time(NULL));
     return rand();

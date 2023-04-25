@@ -11,10 +11,10 @@
 // cl version 19.35.32215 for x64
 
 // https://www.youtube.com/watch?v=wDj64pSeQ4I
-// Is rand( ) Actually Random?
+// Is rand() Actually Random?
 
 // https://www.youtube.com/watch?v=Gb-1grkVGSg
-// rand Considered Harmful : Stephan T. Lavavej
+// rand() Considered Harmful : Stephan T. Lavavej
 
 // https://www.youtube.com/watch?v=4_QO1nm7uJs
 // I Just Wanted a Random Integer! : Cheinan Marks @ CppCon 2016
