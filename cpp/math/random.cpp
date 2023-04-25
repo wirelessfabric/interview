@@ -13,8 +13,17 @@
 // https://www.youtube.com/watch?v=wDj64pSeQ4I
 // Is rand( ) Actually Random?
 
+// https://www.youtube.com/watch?v=Gb-1grkVGSg
+// rand Considered Harmful : Stephan T. Lavavej
+
+// https://www.youtube.com/watch?v=6DPkyvkMkk8
+// What C++ Programmers Need to Know about Header ＜random＞ : Walter E. Brown @ CppCon 2016
+
+// https://www.youtube.com/watch?v=Tof5pRedskI
+// Real-time Programming with the C++ Standard Library : Timur Doumler @ CppCon 2021
+
 // https://www.youtube.com/watch?v=N2AM6ixC6LI
-// Fast, High-quality Pseudo-random Numbers for Audio Developers - Roth Michaels - ADC22
+// Fast, High-quality Pseudo-random Numbers for Audio Developers : Roth Michaels @ ADC22
 
 #include "common.h"
 #include "print.h"
