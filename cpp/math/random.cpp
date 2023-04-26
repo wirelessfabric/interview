@@ -33,15 +33,27 @@
 #include "speedup.h"
 
 // https://www.youtube.com/watch?v=N2AM6ixC6LI @ 3:23
-static void random_std_mt19937(std::vector<float>& v) {
+template <typename T>
+requires std::is_integral_v<T>
+static void random_std_mt19937(std::vector<T>& v) {
     static std::mt19937 g(std::random_device{}());
-    static std::uniform_real_distribution<float> d;
+    static std::uniform_int_distribution<T> d;
+    for (auto& data : v)
+        data = d(g);
+}
+
+template <typename T>
+requires std::is_floating_point_v<T>
+static void random_std_mt19937(std::vector<T>& v) {
+    static std::mt19937 g(std::random_device{}());
+    static std::uniform_real_distribution<T> d;
     for (auto& data : v)
         data = d(g);
 }
 
 // https://www.youtube.com/watch?v=N2AM6ixC6LI @ 11:12
-static void random_std_rand_dice_roll(std::vector<float>& v) {
+template <typename T>
+static void random_dice_roll_std_rand(std::vector<T>& v) {
     struct timespec ts;
     timespec_get(&ts, TIME_UTC);
     std::srand(ts.tv_nsec);
@@ -50,29 +62,44 @@ static void random_std_rand_dice_roll(std::vector<float>& v) {
 }
 
 // https://www.youtube.com/watch?v=N2AM6ixC6LI @ 12:42
-static void random_std_mt19937_dice_roll(std::vector<float>& v) {
+template <typename T>
+requires std::is_integral_v<T>
+static void random_dice_roll_std_mt19937(std::vector<T>& v) {
     static std::mt19937 g(std::random_device{}());
-    static std::uniform_real_distribution<float> d(1u, 6u);
+    static std::uniform_int_distribution<T> d((T)1, (T)6);
     for (auto& data : v)
-        data = (float)(int)d(g);
+        data = d(g);
 }
 
-static void example(void (*f)(std::vector<float>&), int n) {
+template <typename T>
+requires std::is_floating_point_v<T>
+static void random_dice_roll_std_mt19937(std::vector<T>& v) {
+    static std::mt19937 g(std::random_device{}());
+    static std::uniform_real_distribution<T> d((T)1, (T)6);
+    for (auto& data : v)
+        data = (T)(int)d(g);
+}
+
+template <typename T>
+static void example(void (*f)(std::vector<T>&), int n) {
     static auto counter = 1;
     std::cout << "Example " << counter++ << ": ";
     std::cout << "n = " << n;
 
-    std::vector<float> v(n, 0.f);
+    std::vector<T> v(n, (T)0);
     f(v);
     print(v, ", v");
 }
 
-static void f1(void) { example(random_std_mt19937, 10); }
-static void f2(void) { example(random_std_rand_dice_roll, 12); }
-static void f3(void) { example(random_std_mt19937_dice_roll, 12); }
+static void f1(void) { example<int>(random_std_mt19937, 10); }
+static void f2(void) { example<float>(random_std_mt19937, 10); }
+static void f3(void) { example<int>(random_dice_roll_std_rand, 12); }
+static void f4(void) { example<float>(random_dice_roll_std_rand, 12); }
+static void f5(void) { example<int>(random_dice_roll_std_mt19937, 12); }
+static void f6(void) { example<float>(random_dice_roll_std_mt19937, 12); }
 
 static std::vector<void (*)(void)> examples {
-    f1, f2, f3
+    f1, f2, f3, f4, f5, f6
 };
 
 int main() {
