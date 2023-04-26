@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
-#ifndef _UTIL_H_
-#define _UTIL_H_
+#ifndef _UTILS_H_
+#define _UTILS_H_
 
 template <typename T>
 static void reverse(T *v, int n) {
@@ -33,4 +33,4 @@ static void histogram(const std::vector<T>& v, std::map<T,int>& map) {
         map[key]++;
 }
 
-#endif // _UTIL_H_
+#endif // _UTILS_H_
