@@ -30,12 +30,14 @@
 
 #include "common.h"
 #include "print.h"
+#include "utils.h"
 #include "speedup.h"
+
+static std::mt19937 g(std::random_device{}());
 
 template <typename T>
 requires std::is_integral_v<T>
 static T random_std_mt19937(void) {
-    static std::mt19937 g(std::random_device{}());
     static std::uniform_int_distribution<T> d;
     return d(g);
 }
@@ -43,7 +45,6 @@ static T random_std_mt19937(void) {
 template <typename T>
 requires std::is_floating_point_v<T>
 static T random_std_mt19937(void) {
-    static std::mt19937 g(std::random_device{}());
     static std::uniform_real_distribution<T> d;
     return d(g);
 }
@@ -64,19 +65,9 @@ static void dice_roll_std_rand(std::vector<T>& v) {
 }
 
 template <typename T>
-requires std::is_integral_v<T>
 static T dice_roll_std_mt19937(void) {
-    static std::mt19937 g(std::random_device{}());
-    static std::uniform_int_distribution<T> d((T)1, (T)6);
-    return d(g);
-}
-
-template <typename T>
-requires std::is_floating_point_v<T>
-static T dice_roll_std_mt19937(void) {
-    static std::mt19937 g(std::random_device{}());
-    static std::uniform_real_distribution<T> d((T)1, (T)6);
-    return (T)(int)d(g);
+    static std::uniform_int_distribution<int> d(1, 6);
+    return (T)d(g);
 }
 
 template <typename T>
@@ -85,15 +76,20 @@ static void dice_roll_std_mt19937(std::vector<T>& v) {
         data = dice_roll_std_mt19937<T>();
 }
 
+static auto counter = 1;
+
 template <typename T>
 static void example(void (*f)(std::vector<T>&), int n) {
-    static auto counter = 1;
-    std::cout << "Example " << counter++ << ": ";
+    std::cout << "Example " << counter++ << ": " << std::endl;
     std::cout << "n = " << n;
 
     std::vector<T> v(n, (T)0);
     f(v);
     print(v, ", v");
+
+    std::map<T, int> h{};
+    histogram(v, h);
+    print(h, "histogram");
 }
 
 static void f1(void) { example<int>(random_std_mt19937, 10); }
