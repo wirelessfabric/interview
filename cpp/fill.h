@@ -30,21 +30,10 @@ static void fill_gaussian(float* v, float fs, int n) {
     } while (--n);
 }
 
-static void fill_random(float* v, int n) {
-    static std::mt19937 g(std::random_device{}());
-    static std::uniform_real_distribution<float> d;
-    do { *v++ = d(g); } while (--n);
-}
-
-template <typename T>
-static void reverse(T *v, int n) {
-    assert(v && n > 0);
-    auto tail{ &v[n - 1] };
-    while (v < tail) {
-        auto f{ *v };
-        *v++ = *tail;
-        *tail-- = f;
-    }
+static void fill_random(float* v, int n, float a = 0.f, float b = 1.f) {
+    std::mt19937 g(std::random_device{}());
+    std::uniform_real_distribution<float> d(a, b);
+    do *v++ = d(g); while (--n);
 }
 
 #endif // _FILL_H_

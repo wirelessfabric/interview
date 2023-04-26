@@ -21,6 +21,7 @@
 #include "common.h"
 #include "print.h"
 #include "fill.h"
+#include "util.h"
 #include "speedup.h"
 
 #if defined(__x86_64__) || defined(__i386__)
@@ -153,7 +154,8 @@ static void example(void (*f)(const float*, int, const float*, int, float*),
 #define N 512
 static float input[N];
 static float output[N];
-static float random[N];
+static float random01[N];
+static float random0c[N];
 
 #define FREQ 44100.f
 #define G 15
@@ -168,10 +170,11 @@ static float cosine[C];
 static void f1(void) { example(convolve_1d_naive, input, N, gaussian, G, output); }
 static void f2(void) { example(convolve_1d_naive, input, N, sine, S, output); }
 static void f3(void) { example(convolve_1d_naive, input, N, cosine, C, output); }
-static void f4(void) { example(convolve_1d_naive, random, N, gaussian, G, output); }
+static void f4(void) { example(convolve_1d_naive, random01, N, gaussian, G, output); }
+static void f5(void) { example(convolve_1d_naive, random0c, N, gaussian, G, output); }
 
 static std::vector<void (*)(void)> examples {
-    f1, f2, f3, f4
+    f1, f2, f3, f4, f5
 };
 
 int main(int argc, char** argv) {
@@ -182,9 +185,15 @@ int main(int argc, char** argv) {
     if (debug)
         print(input, N, "input");
 
-    fill_random(random, N);
+    fill_random(random01, N);
     if (debug)
-        print(random, N, "random");
+        print(random01, N, "random01");
+    printf("random01 mean %f\n", mean(random01, N));
+
+    fill_random(random0c, N, -0.5f, 0.5f);
+    if (debug)
+        print(random0c, N, "random0c");
+    printf("random0c mean %f\n", mean(random0c, N));
 
     fill_gaussian(gaussian, FREQ, G);
     print(gaussian, G, "gaussian kernel");
