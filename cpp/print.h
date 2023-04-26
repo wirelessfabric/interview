@@ -57,18 +57,6 @@ static void print(const std::vector<T>& v, int start, int end, const char* text 
     print_end(text);
 }
 
-template<typename T>
-static void print(const std::vector<T>& v, int start, int end) {
-    std::cout << "[";
-    auto n{ 0 };
-    for (auto i=start; i <= end; ++i) {
-        if (n++)
-            std::cout << ",";
-        std::cout << v[i];
-    }
-    std::cout << "]" << std::endl;
-}
-
 template<typename T> 
 static void print(const std::vector<std::vector<T>>& vv, const char* text = nullptr) {
     print_begin(text);
