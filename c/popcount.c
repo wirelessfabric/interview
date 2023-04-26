@@ -17,7 +17,7 @@
 // See: https://www.youtube.com/watch?v=Df-qEsWjzQw
 
 // x86_64-pc-linux-gnu-gcc-10.2.0 -O3 -o popcount popcount.c
-int popcount(uint32_t i) {
+static int popcount(uint32_t i) {
      i -= (i >> 1) & 0x55555555;
      i = (i & 0x33333333) + ((i >> 2) & 0x33333333);
      return (((i + (i >> 4)) & 0x0F0F0F0F) * 0x01010101) >> 24;
@@ -29,7 +29,7 @@ int popcount(uint32_t i) {
 //   xor eax,eax
 //   popcnt eax, edit
 //   ret
-int countSetBits(uint32_t n) {
+static int countSetBits(uint32_t n) {
     int count = 0;
     while (n != 0) {
         count++;
@@ -49,7 +49,7 @@ int countSetBits(uint32_t n) {
 // .L5:
 //  xor     eax, eax
 //  ret
-bool isPowerOfTwo_popcnt(uint32_t n) {
+static bool isPowerOfTwo_popcnt(uint32_t n) {
     return countSetBits(n) == 1;
 }
 
@@ -62,7 +62,7 @@ bool isPowerOfTwo_popcnt(uint32_t n) {
 //  sete    al
 // .L6:
 //  ret
-bool isPowerOfTwo_blsr(uint32_t n) {
+static bool isPowerOfTwo_blsr(uint32_t n) {
     return n && (n & (n - 1)) == 0;
 }
 

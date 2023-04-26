@@ -33,7 +33,7 @@
 #include "speedup.h"
 
 // https://www.youtube.com/watch?v=N2AM6ixC6LI @ 3:23
-void random_std_mt19937(std::vector<float>& v) {
+static void random_std_mt19937(std::vector<float>& v) {
     static std::mt19937 g(std::random_device{}());
     static std::uniform_real_distribution<float> d;
     for (auto& data : v)
@@ -41,7 +41,7 @@ void random_std_mt19937(std::vector<float>& v) {
 }
 
 // https://www.youtube.com/watch?v=N2AM6ixC6LI @ 11:12
-void random_std_rand_dice_roll(std::vector<float>& v) {
+static void random_std_rand_dice_roll(std::vector<float>& v) {
     struct timespec ts;
     timespec_get(&ts, TIME_UTC);
     std::srand(ts.tv_nsec);
@@ -50,7 +50,7 @@ void random_std_rand_dice_roll(std::vector<float>& v) {
 }
 
 // https://www.youtube.com/watch?v=N2AM6ixC6LI @ 12:42
-void random_std_mt19937_dice_roll(std::vector<float>& v) {
+static void random_std_mt19937_dice_roll(std::vector<float>& v) {
     static std::mt19937 g(std::random_device{}());
     static std::uniform_real_distribution<float> d(1u, 6u);
     for (auto& data : v)

@@ -22,20 +22,20 @@
 #endif
 
 // https://www.youtube.com/watch?v=wDj64pSeQ4I @ 2:00
-int random_seed(int seed) {
+static int random_seed(int seed) {
     srand(seed);
     return rand();
 }
 
 // https://www.youtube.com/watch?v=wDj64pSeQ4I @ 2:30
 // https://www.youtube.com/watch?v=Gb-1grkVGSg @ 3:00
-int random_time() {
+static int random_time() {
     srand(time(NULL));
     return rand();
 }
 
 // https://www.youtube.com/watch?v=wDj64pSeQ4I @ 2:50
-int random_nsec() {
+static int random_nsec() {
     struct timespec ts;
     timespec_get(&ts, TIME_UTC);
     srand(ts.tv_nsec);
@@ -44,7 +44,7 @@ int random_nsec() {
 
 // https://www.youtube.com/watch?v=wDj64pSeQ4I @ 3:50
 #ifdef __linux__
-int random_openssl() {
+static int random_openssl() {
     unsigned char bytes[100];
     int wrap, i;
 
@@ -63,7 +63,7 @@ int random_openssl() {
     return 0;
 }
 #else
-int random_openssl() {
+static int random_openssl() {
     return random_nsec();
 }
 #endif

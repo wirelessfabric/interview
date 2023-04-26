@@ -15,7 +15,7 @@
 
 // https://www.youtube.com/watch?v=rUt9xcPyKEY @ 1:00
 
-double average(int a, int b) {
+static double average(int a, int b) {
     return (1.0 * a + b) / 2.0;
 }
 
@@ -23,7 +23,7 @@ double average(int a, int b) {
 
 template<typename T>
 requires std::is_integral_v<T>
-double average(T a, T b) {
+static double average(T a, T b) {
     return (1.0 * a + b) / 2.0;
 }
 
