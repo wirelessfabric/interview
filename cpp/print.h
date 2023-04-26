@@ -9,20 +9,20 @@
 #include <map>
 #include <unordered_map>
 
-void print_begin(const char* text = nullptr) {
+static void print_begin(const char* text = nullptr) {
     if (text)
         std::cout << text << " = ";
     std::cout << "[";
 }
 
-void print_end(const char* text = nullptr) {
+static void print_end(const char* text = nullptr) {
     std::cout << "]";
     if (text)
         std::cout << std::endl;
 }
 
 template<typename T>
-void print(T *v, int n, const char* text = nullptr) {
+static void print(T *v, int n, const char* text = nullptr) {
     assert(v && n > 0);
     print_begin(text);
     do {
@@ -34,7 +34,7 @@ void print(T *v, int n, const char* text = nullptr) {
 }
 
 template<typename T>
-void print(const std::vector<T>& v, const char* text = nullptr) {
+static void print(const std::vector<T>& v, const char* text = nullptr) {
     print_begin(text);
     auto n{ 0 };
     for (const auto& e : v) {
@@ -46,7 +46,7 @@ void print(const std::vector<T>& v, const char* text = nullptr) {
 }
 
 template<typename T> 
-void print(const std::vector<T>& v, int start, int end, const char* text = nullptr) {
+static void print(const std::vector<T>& v, int start, int end, const char* text = nullptr) {
     print_begin(text);
     auto n{ 0 };
     for (auto i=start; i <= end; ++i) {
@@ -58,7 +58,7 @@ void print(const std::vector<T>& v, int start, int end, const char* text = nullp
 }
 
 template<typename T>
-void print(const std::vector<T>& v, int start, int end) {
+static void print(const std::vector<T>& v, int start, int end) {
     std::cout << "[";
     auto n{ 0 };
     for (auto i=start; i <= end; ++i) {
@@ -70,7 +70,7 @@ void print(const std::vector<T>& v, int start, int end) {
 }
 
 template<typename T> 
-void print(const std::vector<std::vector<T>>& vv, const char* text = nullptr) {
+static void print(const std::vector<std::vector<T>>& vv, const char* text = nullptr) {
     print_begin(text);
     auto n{ 0 };
     for (const auto& v : vv) {
@@ -82,7 +82,7 @@ void print(const std::vector<std::vector<T>>& vv, const char* text = nullptr) {
 }
 
 template<typename T, size_t N>
-void print(const std::array<T, N>& a, const char* text = nullptr) {
+static void print(const std::array<T, N>& a, const char* text = nullptr) {
     print_begin(text);
     auto n{ 0 };
     for (const auto& e : a) {
@@ -94,7 +94,7 @@ void print(const std::array<T, N>& a, const char* text = nullptr) {
 }
 
 template<typename K, typename V>
-void print(const std::map<K,V>& m, const char* text = nullptr) {
+static void print(const std::map<K,V>& m, const char* text = nullptr) {
     print_begin(text);
     auto n{ 0 };
     for (const auto &[key, value] : m) {
@@ -106,7 +106,7 @@ void print(const std::map<K,V>& m, const char* text = nullptr) {
 }
 
 template<typename K, typename V>
-void print(const std::unordered_map<K, V>& m, const char* text = nullptr) {
+static void print(const std::unordered_map<K, V>& m, const char* text = nullptr) {
     print_begin(text);
     auto n{ 0 };
     for (const auto &[key, value] : m) {
