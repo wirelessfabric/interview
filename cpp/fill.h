@@ -30,9 +30,9 @@ static void fill_gaussian(float* v, float fs, int n) {
     } while (--n);
 }
 
-static void fill_random(float* v, int n, float a = 0.f, float b = 1.f) {
+static void fill_random(float* v, float min, float max, int n) {
     std::mt19937 g(std::random_device{}());
-    std::uniform_real_distribution<float> d(a, b);
+    std::uniform_real_distribution<float> d(min, max);
     do *v++ = d(g); while (--n);
 }
 

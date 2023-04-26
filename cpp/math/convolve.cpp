@@ -185,12 +185,12 @@ int main(int argc, char** argv) {
     if (debug)
         print(input, N, "input");
 
-    fill_random(random01, N);
+    fill_random(random01, 0.f, 1.f, N);
     if (debug)
         print(random01, N, "random01");
     printf("random01 mean %f\n", mean(random01, N));
 
-    fill_random(random0c, N, -0.5f, 0.5f);
+    fill_random(random0c, -0.5f, 0.5f, N);
     if (debug)
         print(random0c, N, "random0c");
     printf("random0c mean %f\n", mean(random0c, N));
