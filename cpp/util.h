@@ -15,7 +15,7 @@ static void reverse(T *v, int n) {
 }
 
 template <typename T>
-float sum(const T* v, int n) {
+static float sum(const T* v, int n) {
     assert(v && n > 0);
     auto sum{ 0.f };
     do sum += *v++; while (--n);
@@ -23,7 +23,7 @@ float sum(const T* v, int n) {
 }
 
 template <typename T>
-float mean(const T* v, int n) {
+static float mean(const T* v, int n) {
     return n ? sum(v, n) / (float)n : 0.f;
 }
 

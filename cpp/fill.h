@@ -6,7 +6,7 @@
 #include <numbers>
 
 template <typename T>
-T slice(int n) {
+static T slice(int n) {
     constexpr auto pie{ (T)(2.0 * std::numbers::pi) };
     return pie / static_cast<T>(n);
 }
