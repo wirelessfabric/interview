@@ -33,8 +33,14 @@ static void print(T *v, int n, const char* text = nullptr) {
     print_end(text);
 }
 
+#ifdef _MSC_VER
+static auto suits = "\x03\x04\x05\x06";
+#else
+static auto suits = "♠♥♦♣";
+#endif
+
 static void print_suit(int c) {
-    std::cout << "\x03\x04\x05\x06"[c / 13]; /* "♠♥♦♣" */
+    std::cout << suits[c / 13];
 };
 
 static void print_rank(int c) {
