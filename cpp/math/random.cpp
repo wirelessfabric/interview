@@ -77,7 +77,7 @@ static void random_uniform_distribution(std::vector<T>& v) {
 // https://www.youtube.com/watch?v=6DPkyvkMkk8 @ 47:40
 
 template <typename T>
-static void dice_roll_std_rand(std::vector<T>& v) {
+static void roll_die_std_rand(std::vector<T>& v) {
     struct timespec ts;
     timespec_get(&ts, TIME_UTC);
     std::srand(ts.tv_nsec);
@@ -88,15 +88,29 @@ static void dice_roll_std_rand(std::vector<T>& v) {
 /////////////////////////////////////////////////////////////////////
 
 template <typename T>
-static T dice_roll_std_mt19937(void) {
+static T roll_die_std_mt19937(void) {
     static std::uniform_int_distribution<int> d(1, 6);
     return (T)d(g);
 }
 
 template <typename T>
-static void dice_roll_std_mt19937(std::vector<T>& v) {
+static void roll_die(std::vector<T>& v) {
     for (auto& variate : v)
-        variate = dice_roll_std_mt19937<T>();
+        variate = roll_die_std_mt19937<T>();
+}
+
+/////////////////////////////////////////////////////////////////////
+
+static void shuffle_cards(std::vector<int>& deck) {
+    deck.reserve(52);
+
+    std::iota(begin(deck), end(deck), int{});
+    print_deck(deck, ", deck");
+
+    std::shuffle(begin(deck), end(deck), g);
+    print_deck(deck, "shffule deck");
+
+    std::cout << "n = " << deck.size();
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -120,13 +134,14 @@ static void example(void (*f)(std::vector<T>&), int n) {
 static void f1(void) { example<float>(random_normal_distribution, 10); }
 static void f2(void) { example<float>(random_uniform_distribution, 10); }
 static void f3(void) { example<int>(random_uniform_distribution, 10); }
-static void f4(void) { example<float>(dice_roll_std_rand, 50); }
-static void f5(void) { example<int>(dice_roll_std_rand, 50); }
-static void f6(void) { example<float>(dice_roll_std_mt19937, 50); }
-static void f7(void) { example<int>(dice_roll_std_mt19937, 50); }
+static void f4(void) { example<float>(roll_die_std_rand, 50); }
+static void f5(void) { example<int>(roll_die_std_rand, 50); }
+static void f6(void) { example<float>(roll_die, 50); }
+static void f7(void) { example<int>(roll_die, 50); }
+static void f8(void) { example(shuffle_cards, 52); }
 
 static std::vector<void (*)(void)> examples {
-    f1, f2, f3, f4, f5, f6, f7
+    f1, f2, f3, f4, f5, f6, f7, f8
 };
 
 int main() {

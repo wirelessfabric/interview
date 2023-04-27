@@ -33,6 +33,25 @@ static void print(T *v, int n, const char* text = nullptr) {
     print_end(text);
 }
 
+static void print_suit(int c) {
+    std::cout << "\x03\x04\x05\x06"[c / 13]; /* "♠♥♦♣" */
+};
+
+static void print_rank(int c) {
+    std::cout << "A23456789TJQK"[c % 13];
+};
+
+static void print_deck(const std::vector<int>& v, const char* text = nullptr) {
+    auto show = [pos=0](int c) mutable {
+        if (pos++) std::cout << ' ';
+        print_rank(c);
+        print_suit(c);
+    };
+    print_begin(text);
+    for_each(begin(v), end(v), show);
+    print_end(text);
+}
+
 template<typename T>
 static void print(const std::vector<T>& v, const char* text = nullptr) {
     print_begin(text);
