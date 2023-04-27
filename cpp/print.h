@@ -36,7 +36,12 @@ static void print(T *v, int n, const char* text = nullptr) {
 #ifdef _MSC_VER
 static auto suits = "\x03\x04\x05\x06";
 #else
-static auto suits = "♠♥♦♣";
+static const char* suits[4] = {
+   "\xE2\x99\xA0",
+   "\xE2\x99\xA5",
+   "\xE2\x99\xA6",
+   "\xE2\x99\xA3"
+};
 #endif
 
 static void print_suit(int c) {
