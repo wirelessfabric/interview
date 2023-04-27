@@ -35,6 +35,8 @@
 
 static std::mt19937 g(std::random_device{}());
 
+/////////////////////////////////////////////////////////////////////
+
 template <typename T>
 requires std::is_floating_point_v<T>
 static T random_normal_distribution(void) {
@@ -47,6 +49,8 @@ static void random_normal_distribution(std::vector<T>& v) {
     for (auto& data : v)
         data = random_normal_distribution<T>();
 }
+
+/////////////////////////////////////////////////////////////////////
 
 template <typename T>
 requires std::is_integral_v<T>
@@ -68,6 +72,8 @@ static void random_uniform_distribution(std::vector<T>& v) {
         data = random_uniform_distribution<T>();
 }
 
+/////////////////////////////////////////////////////////////////////
+
 template <typename T>
 static void dice_roll_std_rand(std::vector<T>& v) {
     struct timespec ts;
@@ -88,6 +94,8 @@ static void dice_roll_std_mt19937(std::vector<T>& v) {
     for (auto& data : v)
         data = dice_roll_std_mt19937<T>();
 }
+
+/////////////////////////////////////////////////////////////////////
 
 static auto counter = 1;
 
