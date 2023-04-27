@@ -75,6 +75,7 @@ static void random_uniform_distribution(std::vector<T>& v) {
 /////////////////////////////////////////////////////////////////////
 // BIAS: % operation makes lower numbers slightly more likely
 // https://www.youtube.com/watch?v=6DPkyvkMkk8 @ 47:40
+// https://www.youtube.com/watch?v=Gb-1grkVGSg @ 4:14
 
 template <typename T>
 static void roll_die_std_rand(std::vector<T>& v) {
