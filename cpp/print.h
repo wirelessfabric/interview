@@ -33,18 +33,12 @@ static void print(T *v, int n, const char* text = nullptr) {
     print_end(text);
 }
 
-#ifdef _MSC_VER
-static auto suits = "\x03\x04\x05\x06";
-#else
-static const char* suits[4] = {
-   "\xE2\x99\xA0",
-   "\xE2\x99\xA5",
-   "\xE2\x99\xA6",
-   "\xE2\x99\xA3"
-};
-#endif
-
 static void print_suit(int c) {
+#ifdef _MSC_VER
+    auto suits{ "\x03\x04\x05\x06" };
+#else
+    const char* suits[]{ "\xE2\x99\xA0", "\xE2\x99\xA5", "\xE2\x99\xA6", "\xE2\x99\xA3" };
+#endif
     std::cout << suits[c / 13];
 };
 
