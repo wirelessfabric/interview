@@ -36,23 +36,36 @@
 static std::mt19937 g(std::random_device{}());
 
 template <typename T>
+requires std::is_floating_point_v<T>
+static T random_normal_distribution(void) {
+    static std::normal_distribution<T> d;
+    return d(g);
+}
+
+template <typename T>
+static void random_normal_distribution(std::vector<T>& v) {
+    for (auto& data : v)
+        data = random_normal_distribution<T>();
+}
+
+template <typename T>
 requires std::is_integral_v<T>
-static T random_std_mt19937(void) {
+static T random_uniform_distribution(void) {
     static std::uniform_int_distribution<T> d;
     return d(g);
 }
 
 template <typename T>
 requires std::is_floating_point_v<T>
-static T random_std_mt19937(void) {
+static T random_uniform_distribution(void) {
     static std::uniform_real_distribution<T> d;
     return d(g);
 }
 
 template <typename T>
-static void random_std_mt19937(std::vector<T>& v) {
+static void random_uniform_distribution(std::vector<T>& v) {
     for (auto& data : v)
-        data = random_std_mt19937<T>();
+        data = random_uniform_distribution<T>();
 }
 
 template <typename T>
@@ -92,15 +105,16 @@ static void example(void (*f)(std::vector<T>&), int n) {
     print(h, "histogram");
 }
 
-static void f1(void) { example<int>(random_std_mt19937, 10); }
-static void f2(void) { example<float>(random_std_mt19937, 10); }
-static void f3(void) { example<int>(dice_roll_std_rand, 50); }
+static void f1(void) { example<float>(random_normal_distribution, 10); }
+static void f2(void) { example<float>(random_uniform_distribution, 10); }
+static void f3(void) { example<int>(random_uniform_distribution, 10); }
 static void f4(void) { example<float>(dice_roll_std_rand, 50); }
-static void f5(void) { example<int>(dice_roll_std_mt19937, 50); }
+static void f5(void) { example<int>(dice_roll_std_rand, 50); }
 static void f6(void) { example<float>(dice_roll_std_mt19937, 50); }
+static void f7(void) { example<int>(dice_roll_std_mt19937, 50); }
 
 static std::vector<void (*)(void)> examples {
-    f1, f2, f3, f4, f5, f6
+    f1, f2, f3, f4, f5, f6, f7
 };
 
 int main() {
