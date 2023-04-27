@@ -105,7 +105,7 @@ static void roll_die(std::vector<T>& v) {
 static void shuffle_cards(std::vector<int>& deck) {
     deck.reserve(52);
 
-    std::iota(begin(deck), end(deck), int{});
+    std::iota(begin(deck), end(deck), 0);
     print_deck(deck, ", deck");
 
     std::shuffle(begin(deck), end(deck), g);
