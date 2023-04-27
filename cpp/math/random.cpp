@@ -85,6 +85,8 @@ static void dice_roll_std_rand(std::vector<T>& v) {
         data = std::rand() % 6u + 1u;
 }
 
+/////////////////////////////////////////////////////////////////////
+
 template <typename T>
 static T dice_roll_std_mt19937(void) {
     static std::uniform_int_distribution<int> d(1, 6);
