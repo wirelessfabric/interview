@@ -73,6 +73,8 @@ static void random_uniform_distribution(std::vector<T>& v) {
 }
 
 /////////////////////////////////////////////////////////////////////
+// ISSUE: % operation makes lower numbers slightly more likely
+// https://www.youtube.com/watch?v=6DPkyvkMkk8 @ 487:40
 
 template <typename T>
 static void dice_roll_std_rand(std::vector<T>& v) {
