@@ -46,8 +46,8 @@ static T random_normal_distribution(void) {
 
 template <typename T>
 static void random_normal_distribution(std::vector<T>& v) {
-    for (auto& data : v)
-        data = random_normal_distribution<T>();
+    for (auto& variate : v)
+        variate = random_normal_distribution<T>();
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -68,8 +68,8 @@ static T random_uniform_distribution(void) {
 
 template <typename T>
 static void random_uniform_distribution(std::vector<T>& v) {
-    for (auto& data : v)
-        data = random_uniform_distribution<T>();
+    for (auto& variate : v)
+        variate = random_uniform_distribution<T>();
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -81,8 +81,8 @@ static void dice_roll_std_rand(std::vector<T>& v) {
     struct timespec ts;
     timespec_get(&ts, TIME_UTC);
     std::srand(ts.tv_nsec);
-    for (auto& data : v)
-        data = std::rand() % 6u + 1u;
+    for (auto& variate : v)
+        variate = std::rand() % 6u + 1u;
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -95,8 +95,8 @@ static T dice_roll_std_mt19937(void) {
 
 template <typename T>
 static void dice_roll_std_mt19937(std::vector<T>& v) {
-    for (auto& data : v)
-        data = dice_roll_std_mt19937<T>();
+    for (auto& variate : v)
+        variate = dice_roll_std_mt19937<T>();
 }
 
 /////////////////////////////////////////////////////////////////////
