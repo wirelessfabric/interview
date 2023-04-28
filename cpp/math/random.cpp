@@ -46,8 +46,8 @@ static T random_normal_distribution(void) {
 
 template <typename T>
 static void random_normal_distribution(std::vector<T>& v) {
-    for (auto& variate : v)
-        variate = random_normal_distribution<T>();
+    for (auto& r : v)
+        r = random_normal_distribution<T>();
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -68,8 +68,8 @@ static T random_uniform_distribution(void) {
 
 template <typename T>
 static void random_uniform_distribution(std::vector<T>& v) {
-    for (auto& variate : v)
-        variate = random_uniform_distribution<T>();
+    for (auto& r : v)
+        r = random_uniform_distribution<T>();
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -82,8 +82,8 @@ static void roll_die_std_rand(std::vector<T>& v) {
     struct timespec ts;
     timespec_get(&ts, TIME_UTC);
     std::srand(ts.tv_nsec);
-    for (auto& variate : v)
-        variate = std::rand() % 6u + 1u;
+    for (auto& r : v)
+        r = std::rand() % 6u + 1u;
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -96,8 +96,8 @@ static T roll_die_std_mt19937(void) {
 
 template <typename T>
 static void roll_die(std::vector<T>& v) {
-    for (auto& variate : v)
-        variate = roll_die_std_mt19937<T>();
+    for (auto& r : v)
+        r = roll_die_std_mt19937<T>();
 }
 
 /////////////////////////////////////////////////////////////////////
