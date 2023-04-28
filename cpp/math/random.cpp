@@ -14,7 +14,10 @@
 // Is rand() Actually Random?
 
 // https://www.youtube.com/watch?v=Gb-1grkVGSg
-// rand() Considered Harmful : Stephan T. Lavavej
+// rand() Considered Harmful : Stephan T. Lavavej @ GoingNative 2013
+
+// https://www.youtube.com/watch?v=45Oet5qjlms
+// PCG: A Family of Better Random Number Generators @ Stanford Seminar 2015
 
 // https://www.youtube.com/watch?v=4_QO1nm7uJs
 // I Just Wanted a Random Integer! : Cheinan Marks @ CppCon 2016
