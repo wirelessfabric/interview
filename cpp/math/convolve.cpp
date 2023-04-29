@@ -167,18 +167,29 @@ static float sine[S];
 static float cosine[C];
 
 static void f1(void) { example(convolve_1d_naive, input, N, gaussian, G, output); }
-static void f2(void) { example(convolve_1d_simd_unaligned, input, N, gaussian, G, output); }
-static void f3(void) { example(convolve_1d_naive, input, N, sine, S, output); }
-static void f4(void) { example(convolve_1d_simd_unaligned, input, N, sine, S, output); }
-static void f5(void) { example(convolve_1d_naive, input, N, cosine, C, output); }
-static void f6(void) { example(convolve_1d_simd_unaligned, input, N, cosine, C, output); }
-static void f7(void) { example(convolve_1d_naive, random01, N, gaussian, G, output); }
-static void f8(void) { example(convolve_1d_simd_unaligned, random01, N, gaussian, G, output); }
-static void f9(void) { example(convolve_1d_naive, randomzc, N, gaussian, G, output); }
-static void f10(void) { example(convolve_1d_simd_unaligned, randomzc, N, gaussian, G, output); }
+static void f2(void) { example(convolve_1d_naive, input, N, sine, S, output); }
+static void f3(void) { example(convolve_1d_naive, input, N, cosine, C, output); }
+static void f4(void) { example(convolve_1d_naive, random01, N, gaussian, G, output); }
+static void f5(void) { example(convolve_1d_naive, randomzc, N, gaussian, G, output); }
+
+#if defined(__GNUC__)
+#if defined(__x86_64__) || defined(__i386__)
+static void s1(void) { example(convolve_1d_simd_unaligned, input, N, gaussian, G, output); }
+static void s2(void) { example(convolve_1d_simd_unaligned, input, N, sine, S, output); }
+static void s3(void) { example(convolve_1d_simd_unaligned, input, N, cosine, C, output); }
+static void s4(void) { example(convolve_1d_simd_unaligned, random01, N, gaussian, G, output); }
+static void s5(void) { example(convolve_1d_simd_unaligned, randomzc, N, gaussian, G, output); }
+#endif
+#endif
 
 static std::vector<void (*)(void)> examples {
-    f1, f2, f3, f4, f5, f6, f7, f8, f9, f10
+    f1, f2, f3, f4, f5
+#if defined(__GNUC__)
+#if defined(__x86_64__) || defined(__i386__)
+    ,
+    s6, s7, s8, s9, s5
+#endif
+#endif
 };
 
 int main(int argc, char** argv) {
