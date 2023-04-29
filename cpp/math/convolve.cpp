@@ -25,7 +25,7 @@
 #include "speedup.h"
 
 #if defined(__x86_64__) || defined(__i386__)
-#include <emmintrin.h>
+#include <immintrin.h>
 #endif
 
 static bool debug = false;
