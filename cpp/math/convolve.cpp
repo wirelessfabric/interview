@@ -24,8 +24,10 @@
 #include "utils.h"
 #include "speedup.h"
 
+#if defined(__GNUC__)
 #if defined(__x86_64__) || defined(__i386__)
 #include <immintrin.h>
+#endif
 #endif
 
 static bool debug = false;
@@ -35,7 +37,7 @@ static void convolve_1d_naive(const float *input, int n,
                               float *output)
 {
     assert(input && kernel && output && m < n);
-    const auto size{ n - m + 1 };
+    const auto size{ n - m };
     for (auto i = 0; i < size; ++i) {
         auto sum{ 0.f };
         for (auto j = 0; j < m; ++j) {
@@ -47,42 +49,39 @@ static void convolve_1d_naive(const float *input, int n,
     }
 }
 
-#if 0
+#if defined(__GNUC__)
 #if defined(__x86_64__) || defined(__i386__)
-// https://www.jackcampbellsounds.com/2019/01/24/simdsseboilerplate.html
-
-static void convolve_simd_unaligned(float *inSig, size_t M,
-                                    float *inKernel, size_t N,
-                                    float *outSig)
+// Refactored from https://www.jackcampbellsounds.com/2019/01/24/simdsseboilerplate.html
+static void convolve_1d_simd_unaligned(const float *input, int n,
+                                       const float *kernel, int m,
+                                       float *output)
 {
-    const size_t outLen = M + N - 1;
-    // Preprocess the kernel:
-    // reverse the kernel pre-loop and repeat each value across a 4-vector
-    alignas(16) __m128 inKernelSIMD[N];
-    for(int i=0; i<N; i++)
-    {
-        inKernelSIMD[i] = _mm_set1_ps(inKernel[N - i - 1]);
-    }
+    assert(input && kernel && output && m < n);
+    const auto size{ n - m };
+
+    alignas(16) __m128 simd_kernel[m];
+    for (auto i=0; i < m; i++)
+        simd_kernel[i] = _mm_set1_ps(kernel[i]);
     
-    // pre-loop vars
-    alignas(16) __m128 simd_sig;
-    alignas(16) __m128 prod;
-    alignas(16) __m128 accumulator;
-    for (size_t i = 0; i < outLen; i+=4)
-    {
-        accumulator = _mm_setzero_ps();
-        for (size_t j = 0; j < N; ++j)
-        {
-            simd_sig = _mm_loadu_ps(&inSig[i + j]);
-            prod = _mm_mul_ps(simd_sig, inKernelSIMD[j]);
-            accumulator = _mm_add_ps(accumulator, prod);
+    alignas(16) __m128 simd_input;
+    alignas(16) __m128 product;
+    alignas(16) __m128 sum;
+    for (auto i = 0; i < size; i += 4) {
+        sum = _mm_setzero_ps();
+        for (auto j = 0; j < m; ++j) {
+            simd_input = _mm_loadu_ps(&input[i + j]);
+            product = _mm_mul_ps(simd_input, simd_kernel[j]);
+            sum = _mm_add_ps(sum, product);
         }
-        _mm_storeu_ps(&outSig[i], accumulator);
+        _mm_storeu_ps(&output[i], sum);
     }
 }
+#endif
+#endif
 
+#if 0 // defined(__GNUC__)
+#if defined(__x86_64__) || defined(__i386__)
 // https://www.jackcampbellsounds.com/2019/01/24/simdsseboilerplate.html
-
 static void convolve_simd(float *inSig, size_t M,
                           float *inKernel, size_t N,
                           float *outSig)
@@ -168,13 +167,18 @@ static float sine[S];
 static float cosine[C];
 
 static void f1(void) { example(convolve_1d_naive, input, N, gaussian, G, output); }
-static void f2(void) { example(convolve_1d_naive, input, N, sine, S, output); }
-static void f3(void) { example(convolve_1d_naive, input, N, cosine, C, output); }
-static void f4(void) { example(convolve_1d_naive, random01, N, gaussian, G, output); }
-static void f5(void) { example(convolve_1d_naive, randomzc, N, gaussian, G, output); }
+static void f2(void) { example(convolve_1d_simd_unaligned, input, N, gaussian, G, output); }
+static void f3(void) { example(convolve_1d_naive, input, N, sine, S, output); }
+static void f4(void) { example(convolve_1d_simd_unaligned, input, N, sine, S, output); }
+static void f5(void) { example(convolve_1d_naive, input, N, cosine, C, output); }
+static void f6(void) { example(convolve_1d_simd_unaligned, input, N, cosine, C, output); }
+static void f7(void) { example(convolve_1d_naive, random01, N, gaussian, G, output); }
+static void f8(void) { example(convolve_1d_simd_unaligned, random01, N, gaussian, G, output); }
+static void f9(void) { example(convolve_1d_naive, randomzc, N, gaussian, G, output); }
+static void f10(void) { example(convolve_1d_simd_unaligned, randomzc, N, gaussian, G, output); }
 
 static std::vector<void (*)(void)> examples {
-    f1, f2, f3, f4, f5
+    f1, f2, f3, f4, f5, f6, f7, f8, f9, f10
 };
 
 int main(int argc, char** argv) {
