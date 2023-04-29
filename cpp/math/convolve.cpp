@@ -18,6 +18,12 @@
 // https://www.jackcampbellsounds.com/2019/01/24/simdsseboilerplate.html
 // GETTING STARTED WITH SIMD INTRINSICS by Jack Campbell
 
+// https://thewolfsound.com/convolution-the-secret-behind-filtering/
+// The Convolution Series by Jan Wilczek
+
+// https://www.youtube.com/playlist?list=PLJLybGgHYEIdZ6uXe3D_U5tsoSbN22g1Q
+// Convolution videos on DSP playlist by Jan Wilczek @ WolfSoundAudio
+
 #include "common.h"
 #include "print.h"
 #include "fill.h"
