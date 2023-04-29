@@ -140,10 +140,10 @@ static void example(void (*f)(const float*, int, const float*, int, float*),
 
     f(input, n, kernel, m, output);
 
-    std::cout << std::endl;
+    std::cout << "mean " << mean(output, n) << std::endl;
     if (debug)
         print(output, n, "output");
-}
+ }
 
 // Sample Rate = Sampling Frequency = 44100 Hz
 // Sample Period = 1 / 44100 = ~0.0227 ms
