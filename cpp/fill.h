@@ -18,6 +18,11 @@ static void fill(float* v, float (*f)(float), int n) {
     do { *v++ = f(w); w += df; } while (--n);
 }
 
+static void fill(float* v, float f, int n) {
+    assert(v && n > 0);
+    do { *v++ = f; } while (--n);
+}
+
 static void fill_gaussian(float* v, float fs, int n) {
     assert(v && fs > 0 && n > 0);
     const auto tau{ (float)n / ((float)(2.0 * std::numbers::pi) * fs) };
