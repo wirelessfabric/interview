@@ -187,7 +187,7 @@ static std::vector<void (*)(void)> examples {
 #if defined(__GNUC__)
 #if defined(__x86_64__) || defined(__i386__)
     ,
-    s6, s7, s8, s9, s5
+    s1, s2, s3, s4, s5
 #endif
 #endif
 };
