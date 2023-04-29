@@ -51,7 +51,7 @@ static void convolve_1d_naive(const float *input, int n,
 
 #if defined(__GNUC__)
 #if defined(__x86_64__) || defined(__i386__)
-// Refactored from https://www.jackcampbellsounds.com/2019/01/24/simdsseboilerplate.html
+// refactored from https://www.jackcampbellsounds.com/2019/01/24/simdsseboilerplate.html
 static void convolve_1d_simd_unaligned(const float *input, int n,
                                        const float *kernel, int m,
                                        float *output)
