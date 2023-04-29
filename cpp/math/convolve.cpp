@@ -57,7 +57,7 @@ static void convolve_1d_simd_unaligned(const float *input, int n,
                                        float *output)
 {
     assert(input && kernel && output && m < n);
-    const auto size{ n - m + 1 };
+    const auto size{ n - m };
 
     alignas(16) __m128 simd_kernel[m];
     for (auto i=0; i < m; i++)
