@@ -4,7 +4,7 @@
 #define _UTILS_H_
 
 template <typename T>
-static void reverse(T *v, int n) {
+static void flip(T *v, int n) {
     assert(v && n > 0);
     auto tail{ &v[n - 1] };
     while (v < tail) {

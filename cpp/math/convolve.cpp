@@ -211,15 +211,22 @@ int main(int argc, char** argv) {
     printf("randomzc mean %f\n", mean(randomzc, N));
 
     fill_gaussian(gaussian, FREQ, G);
-    print(gaussian, G, "gaussian kernel");
+    if (debug)
+        print(gaussian, G, "gaussian kernel");
+    flip(gaussian, G);
+    print(gaussian, G, "gaussian kernel (flipped)");
 
     fill(sine, sinf, S);
-    reverse(sine, S);
-    print(sine, S, "sine kernel (reversed)");
+    if (debug)
+        print(sine, S, "sine kernel");
+    flip(sine, S);
+    print(sine, S, "sine kernel (flipped)");
 
     fill(cosine, cosf, C);
-    reverse(cosine, C);
-    print(cosine, C, "cosine kernel (reversed)");
+    if (debug)
+        print(cosine, S, "cosine kernel");
+    flip(cosine, C);
+    print(cosine, C, "cosine kernel (flipped)");
 
     for (const auto& f : examples)
         f();
