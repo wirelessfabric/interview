@@ -32,12 +32,14 @@
 
 static bool debug = false;
 
-static void convolve_1d_naive(const float *input, int n,
-                              const float *kernel, int m,
-                              float *output)
+static void convolve_1d_valid_mode_naive(
+    const float *input, int n,
+    const float *kernel, int m,
+    float *output)
 {
     assert(input && kernel && output && m < n);
     const auto size{ n - m + 1 };
+
     for (auto i = 0; i < size; ++i) {
         auto sum{ 0.f };
         for (auto j = 0; j < m; ++j) {
@@ -47,17 +49,19 @@ static void convolve_1d_naive(const float *input, int n,
         }
         output[i] = sum;
     }
+
+    fill(&output[size], 0.f, m - 1);
 }
 
 #if defined(__GNUC__)
 #if defined(__x86_64__) || defined(__i386__)
-// refactored from https://www.jackcampbellsounds.com/2019/01/24/simdsseboilerplate.html
-static void convolve_1d_simd_unaligned(const float *input, int n,
-                                       const float *kernel, int m,
-                                       float *output)
+static void convolve_1d_valid_mode_simd_unaligned(
+    const float *input, int n,
+    const float *kernel, int m,
+    float *output)
 {
     assert(input && kernel && output && m < n);
-    const auto size{ n - m };
+    const auto size{ n - m + 1 };
 
     alignas(16) __m128 simd_kernel[m];
     for (auto i=0; i < m; i++)
@@ -75,6 +79,8 @@ static void convolve_1d_simd_unaligned(const float *input, int n,
         }
         _mm_storeu_ps(&output[i], sum);
     }
+
+    fill(&output[size], 0.f, m - 1);
 }
 #endif
 #endif
@@ -166,19 +172,19 @@ static float sine[S];
 #define C 4
 static float cosine[C];
 
-static void f1(void) { example(convolve_1d_naive, input, N, gaussian, G, output); }
-static void f2(void) { example(convolve_1d_naive, input, N, sine, S, output); }
-static void f3(void) { example(convolve_1d_naive, input, N, cosine, C, output); }
-static void f4(void) { example(convolve_1d_naive, random01, N, gaussian, G, output); }
-static void f5(void) { example(convolve_1d_naive, randomzc, N, gaussian, G, output); }
+static void f1(void) { example(convolve_1d_valid_mode_naive, input, N, gaussian, G, output); }
+static void f2(void) { example(convolve_1d_valid_mode_naive, input, N, sine, S, output); }
+static void f3(void) { example(convolve_1d_valid_mode_naive, input, N, cosine, C, output); }
+static void f4(void) { example(convolve_1d_valid_mode_naive, random01, N, gaussian, G, output); }
+static void f5(void) { example(convolve_1d_valid_mode_naive, randomzc, N, gaussian, G, output); }
 
 #if defined(__GNUC__)
 #if defined(__x86_64__) || defined(__i386__)
-static void s1(void) { example(convolve_1d_simd_unaligned, input, N, gaussian, G, output); }
-static void s2(void) { example(convolve_1d_simd_unaligned, input, N, sine, S, output); }
-static void s3(void) { example(convolve_1d_simd_unaligned, input, N, cosine, C, output); }
-static void s4(void) { example(convolve_1d_simd_unaligned, random01, N, gaussian, G, output); }
-static void s5(void) { example(convolve_1d_simd_unaligned, randomzc, N, gaussian, G, output); }
+static void s1(void) { example(convolve_1d_valid_mode_simd_unaligned, input, N, gaussian, G, output); }
+static void s2(void) { example(convolve_1d_valid_mode_simd_unaligned, input, N, sine, S, output); }
+static void s3(void) { example(convolve_1d_valid_mode_simd_unaligned, input, N, cosine, C, output); }
+static void s4(void) { example(convolve_1d_valid_mode_simd_unaligned, random01, N, gaussian, G, output); }
+static void s5(void) { example(convolve_1d_valid_mode_simd_unaligned, randomzc, N, gaussian, G, output); }
 #endif
 #endif
 
