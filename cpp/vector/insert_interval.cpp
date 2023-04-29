@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// g++ -std=c++2a -O3 -I.. -lstdc++ -lm insert_interval.cpp -o insert_interval
+// g++ -std=c++20 -O3 -I.. -lstdc++ -lm insert_interval.cpp -o insert_interval
 // g++ --version 11.3.0 on soho ubuntu 22.04
 
 #include "common.h"

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// g++ -std=c++2a -O3 -I.. -lstdc++ -lm house_robber.cpp -o house_robber
+// g++ -std=c++20 -O3 -I.. -lstdc++ -lm house_robber.cpp -o house_robber
 // g++ --version 11.3.0 on soho ubuntu 22.04
 
 #include "common.h"

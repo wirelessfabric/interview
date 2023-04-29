@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// g++ -std=c++2a -O3 -I.. convolve.cpp -o convolve
+// g++ -std=c++20 -O3 -I.. convolve.cpp -o convolve
 // g++ --version 11.3.0 on soho ubuntu 22.04
 //
 // %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"

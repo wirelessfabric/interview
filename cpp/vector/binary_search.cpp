@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// g++ -std=c++2a -O3 -I.. -lstdc++ -lm binary_search.cpp -o binary_search
+// g++ -std=c++20 -O3 -I.. -lstdc++ -lm binary_search.cpp -o binary_search
 // g++ --version 11.3.0 on soho ubuntu 22.04
 
 #include "common.h"
