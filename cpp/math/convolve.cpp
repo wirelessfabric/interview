@@ -32,10 +32,10 @@
 
 #if defined(__x86_64__) || defined(__i386__)
 #include <immintrin.h>
-#define MM_SIMD
+#define MM_INTRIN
 #elif defined(_M_IX86) || defined(_M_X64)
 #include <intrin.h>
-#define MM_SIMD
+#define MM_INTRIN
 #endif
 
 static bool debug = false;
@@ -61,7 +61,7 @@ static void convolve_1d_valid_mode_naive(
     fill(&output[size], 0.f, m - 1);
 }
 
-#ifdef MM_SIMD
+#ifdef MM_INTRIN
 static void convolve_1d_valid_mode_simd_unaligned(
     const float *input, int n,
     const float *kernel, int m,
@@ -182,7 +182,7 @@ static void f3(void) { example(convolve_1d_valid_mode_naive, input, N, cosine, C
 static void f4(void) { example(convolve_1d_valid_mode_naive, random01, N, gaussian, G, output); }
 static void f5(void) { example(convolve_1d_valid_mode_naive, randomzc, N, gaussian, G, output); }
 
-#ifdef MM_SIMD
+#ifdef MM_INTRIN
 static void m1(void) { example(convolve_1d_valid_mode_simd_unaligned, input, N, gaussian, G, output); }
 static void m2(void) { example(convolve_1d_valid_mode_simd_unaligned, input, N, sine, S, output); }
 static void m3(void) { example(convolve_1d_valid_mode_simd_unaligned, input, N, cosine, C, output); }
@@ -192,7 +192,7 @@ static void m5(void) { example(convolve_1d_valid_mode_simd_unaligned, randomzc, 
 
 static std::vector<void (*)(void)> examples {
     f1, f2, f3, f4, f5
-#ifdef MM_SIMD
+#ifdef MM_INTRIN
     ,
     m1, m2, m3, m4, m5
 #endif
