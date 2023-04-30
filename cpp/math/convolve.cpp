@@ -93,52 +93,44 @@ static void convolve_1d_valid_mode_simd_unaligned(
 
 #ifdef __GNUC__
 #ifdef MM_INTRIN
-// https://www.jackcampbellsounds.com/2019/01/24/simdsseboilerplate.html
-static void convolve_simd(float *inSig, size_t M,
-                          float *inKernel, size_t N,
-                          float *outSig)
+static void convolve_1d_valid_mode_simd(
+    const float *input, int n,
+    const float *kernel, int m,
+    float *output)
 {
-    const size_t outLen = M + N - 1;
+    assert(input && kernel && output && m < n);
+    const auto size{ n - m + 1 };
     
     // preprocess the input
     // store offset versions of the input signal to allow for aligned loads
-    alignas(16) __m128 inSignalSIMD[4][M];
-    for(int ii = 0; ii < 4; ii++)
-    {
+    alignas(16) __m128 simd_input[4][n];
+    for (int k=0; k < 4; ++k) {
         int j = 0;
-        for (size_t i = 0; i < M; i+=4)
-        {
-            inSignalSIMD[ii][j++] = _mm_set_ps(inSig[i+0+ii], 
-                                               inSig[i+1+ii], 
-                                               inSig[i+2+ii], 
-                                               inSig[i+3+ii]);
+        for (int i=0; i < n; i += 4) {
+            simd_input[k][j++] = _mm_set_ps(input[i+0+k], 
+                                            input[i+1+k], 
+                                            input[i+2+k], 
+                                            input[i+3+k]);
         }
     }
 
-    // Preprocess the kernel:
-    // reverse the kernel pre-loop and repeat each value across a 4-vector
-    alignas(16) __m128 inKernelSIMD[N];
-    for(int i=0; i<N; i++)
-    {
-        inKernelSIMD[i] = _mm_set1_ps(inKernel[N - i - 1]);
-    }
+    auto simd_kernel{ std::make_unique<__m128[]>(m) };
+    for (int i=0; i < m; ++i)
+        simd_kernel[i] = _mm_set1_ps(kernel[i]);
     
-    // pre-loop vars
-    alignas(16) __m128 accumulator;
-    for (size_t i = 0; i < outLen; i+=4)
-    {
-        accumulator = _mm_setzero_ps();
-        for (size_t j = 0; j < N; ++j)
-        {
+    alignas(16) __m128 sum;
+    for (int i=0; i < size; i += 4) {
+        sum = _mm_setzero_ps();
+        for (int j=0; j < m; ++j) {
             // indexing gets real complicated!
-            int index = i/4 + (int)(j*0.25); 
-            accumulator = _mm_add_ps(accumulator, 
-                                     _mm_mul_ps(inSignalSIMD[j%4][index], 
-                                     inKernelSIMD[j]));
+            int k = i / 4 + (int)(j * 0.25);
+            sum = _mm_add_ps(sum, _mm_mul_ps(simd_input[j & 3][k], simd_kernel[j]));
         }
         // still an unaligned store. room for improvement.
-        _mm_storeu_ps(&outSig[i], accumulator);
+        _mm_storeu_ps(&output[i], sum);
     }
+
+    fill(&output[size], 0.f, m - 1);
 }
 #endif
 #endif
@@ -195,6 +187,13 @@ static void m2(void) { example(convolve_1d_valid_mode_simd_unaligned, input, N, 
 static void m3(void) { example(convolve_1d_valid_mode_simd_unaligned, input, N, cosine, C, output); }
 static void m4(void) { example(convolve_1d_valid_mode_simd_unaligned, random01, N, gaussian, G, output); }
 static void m5(void) { example(convolve_1d_valid_mode_simd_unaligned, randomzc, N, gaussian, G, output); }
+#ifdef __GNUC__
+static void g1(void) { example(convolve_1d_valid_mode_simd, input, N, gaussian, G, output); }
+static void g2(void) { example(convolve_1d_valid_mode_simd, input, N, sine, S, output); }
+static void g3(void) { example(convolve_1d_valid_mode_simd, input, N, cosine, C, output); }
+static void g4(void) { example(convolve_1d_valid_mode_simd, random01, N, gaussian, G, output); }
+static void g5(void) { example(convolve_1d_valid_mode_simd, randomzc, N, gaussian, G, output); }
+#endif
 #endif
 
 static std::vector<void (*)(void)> examples {
@@ -202,6 +201,10 @@ static std::vector<void (*)(void)> examples {
 #ifdef MM_INTRIN
     ,
     m1, m2, m3, m4, m5
+#ifdef __GNUC__
+    ,
+    g1, g2, g3, g4, g5
+#endif
 #endif
 };
 
