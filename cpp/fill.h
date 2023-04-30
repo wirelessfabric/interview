@@ -3,6 +3,7 @@
 #ifndef _FILL_H_
 #define _FILL_H_
 
+#include <random>
 #include <numbers>
 
 template <typename T>
@@ -35,11 +36,11 @@ static void fill_gaussian(float* v, float fs, int n) {
     } while (--n);
 }
 
-static std::mt19937 fill_random_engine(std::random_device{}());
+static std::mt19937& prng(void);
 
 static void fill_random(float* v, float min, float max, int n) {
     std::uniform_real_distribution<float> d(min, max);
-    do *v++ = d(fill_random_engine); while (--n);
+    do *v++ = d(prng()); while (--n);
 }
 
 #endif // _FILL_H_

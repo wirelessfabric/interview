@@ -26,8 +26,8 @@
 
 #include "common.h"
 #include "print.h"
-#include "fill.h"
 #include "utils.h"
+#include "fill.h"
 #include "speedup.h"
 
 #if defined(__x86_64__) || defined(__i386__)

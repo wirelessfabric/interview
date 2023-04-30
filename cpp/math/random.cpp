@@ -33,10 +33,8 @@
 
 #include "common.h"
 #include "print.h"
-#include "utils.h"
+#include "utils.h"     // prng()
 #include "speedup.h"
-
-static std::mt19937 g(std::random_device{}());
 
 /////////////////////////////////////////////////////////////////////
 
@@ -44,7 +42,7 @@ template <typename T>
 requires std::is_floating_point_v<T>
 static T random_normal_distribution(void) {
     static std::normal_distribution<T> d;
-    return d(g);
+    return d(prng());
 }
 
 template <typename T>
@@ -59,14 +57,14 @@ template <typename T>
 requires std::is_integral_v<T>
 static T random_uniform_distribution(void) {
     static std::uniform_int_distribution<T> d;
-    return d(g);
+    return d(prng());
 }
 
 template <typename T>
 requires std::is_floating_point_v<T>
 static T random_uniform_distribution(void) {
     static std::uniform_real_distribution<T> d;
-    return d(g);
+    return d(prng());
 }
 
 template <typename T>
@@ -94,7 +92,7 @@ static void roll_die_std_rand(std::vector<T>& v) {
 template <typename T>
 static T roll_die_std_mt19937(void) {
     static std::uniform_int_distribution<int> d(1, 6);
-    return (T)d(g);
+    return (T)d(prng());
 }
 
 template <typename T>
@@ -111,7 +109,7 @@ static void shuffle_cards(std::vector<int>& deck) {
     std::iota(begin(deck), end(deck), 0);
     print_deck(deck, ", deck");
 
-    std::shuffle(begin(deck), end(deck), g);
+    std::shuffle(begin(deck), end(deck), prng());
     print_deck(deck, "shffule deck");
 
     std::cout << "n = " << deck.size();

@@ -3,6 +3,10 @@
 #ifndef _UTILS_H_
 #define _UTILS_H_
 
+#include <map>
+#include <vector>
+#include <random>
+
 template <typename T>
 static void flip(T *v, int n) {
     assert(v && n > 0);
@@ -31,6 +35,11 @@ template <typename T>
 static void histogram(const std::vector<T>& v, std::map<T,int>& map) {
     for (const auto& key : v)
         map[key]++;
+}
+
+static std::mt19937& prng(void) {
+    static std::mt19937 g(std::random_device{}());
+    return g;
 }
 
 #endif // _UTILS_H_
