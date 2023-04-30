@@ -91,7 +91,7 @@ static void convolve_1d_valid_mode_simd_unaligned(
 }
 #endif
 
-#if 0 // #ifdef INTEL_SIMD
+#if 0 // #ifdef MM_INTRIN
 // https://www.jackcampbellsounds.com/2019/01/24/simdsseboilerplate.html
 static void convolve_simd(float *inSig, size_t M,
                           float *inKernel, size_t N,
