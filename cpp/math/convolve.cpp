@@ -91,7 +91,8 @@ static void convolve_1d_valid_mode_simd_unaligned(
 }
 #endif
 
-#if 0 // #ifdef MM_INTRIN
+#ifdef __GNUC__
+#ifdef MM_INTRIN
 // https://www.jackcampbellsounds.com/2019/01/24/simdsseboilerplate.html
 static void convolve_simd(float *inSig, size_t M,
                           float *inKernel, size_t N,
@@ -101,6 +102,7 @@ static void convolve_simd(float *inSig, size_t M,
     
     // preprocess the input
     // store offset versions of the input signal to allow for aligned loads
+    alignas(16) __m128 inSignalSIMD[4][M];
     for(int ii = 0; ii < 4; ii++)
     {
         int j = 0;
@@ -138,6 +140,7 @@ static void convolve_simd(float *inSig, size_t M,
         _mm_storeu_ps(&outSig[i], accumulator);
     }
 }
+#endif
 #endif
 
 static void example(void (*f)(const float*, int, const float*, int, float*),
