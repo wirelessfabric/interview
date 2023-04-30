@@ -30,10 +30,12 @@
 #include "utils.h"
 #include "speedup.h"
 
-#if defined(__GNUC__)
 #if defined(__x86_64__) || defined(__i386__)
 #include <immintrin.h>
-#endif
+#define MM_SIMD
+#elif defined(_M_IX86) || defined(_M_X64)
+#include <intrin.h>
+#define MM_SIMD
 #endif
 
 static bool debug = false;
@@ -59,8 +61,7 @@ static void convolve_1d_valid_mode_naive(
     fill(&output[size], 0.f, m - 1);
 }
 
-#if defined(__GNUC__)
-#if defined(__x86_64__) || defined(__i386__)
+#ifdef MM_SIMD
 static void convolve_1d_valid_mode_simd_unaligned(
     const float *input, int n,
     const float *kernel, int m,
@@ -69,7 +70,7 @@ static void convolve_1d_valid_mode_simd_unaligned(
     assert(input && kernel && output && m < n);
     const auto size{ n - m + 1 };
 
-    alignas(16) __m128 simd_kernel[m];
+    auto simd_kernel{ std::make_unique<__m128[]>(m) };
     for (auto i=0; i < m; i++)
         simd_kernel[i] = _mm_set1_ps(kernel[i]);
     
@@ -89,10 +90,8 @@ static void convolve_1d_valid_mode_simd_unaligned(
     fill(&output[size], 0.f, m - 1);
 }
 #endif
-#endif
 
-#if 0 // defined(__GNUC__)
-#if defined(__x86_64__) || defined(__i386__)
+#if 0 // #ifdef INTEL_SIMD
 // https://www.jackcampbellsounds.com/2019/01/24/simdsseboilerplate.html
 static void convolve_simd(float *inSig, size_t M,
                           float *inKernel, size_t N,
@@ -140,7 +139,6 @@ static void convolve_simd(float *inSig, size_t M,
     }
 }
 #endif
-#endif
 
 static void example(void (*f)(const float*, int, const float*, int, float*),
                     float *input, int n,
@@ -184,23 +182,19 @@ static void f3(void) { example(convolve_1d_valid_mode_naive, input, N, cosine, C
 static void f4(void) { example(convolve_1d_valid_mode_naive, random01, N, gaussian, G, output); }
 static void f5(void) { example(convolve_1d_valid_mode_naive, randomzc, N, gaussian, G, output); }
 
-#if defined(__GNUC__)
-#if defined(__x86_64__) || defined(__i386__)
-static void s1(void) { example(convolve_1d_valid_mode_simd_unaligned, input, N, gaussian, G, output); }
-static void s2(void) { example(convolve_1d_valid_mode_simd_unaligned, input, N, sine, S, output); }
-static void s3(void) { example(convolve_1d_valid_mode_simd_unaligned, input, N, cosine, C, output); }
-static void s4(void) { example(convolve_1d_valid_mode_simd_unaligned, random01, N, gaussian, G, output); }
-static void s5(void) { example(convolve_1d_valid_mode_simd_unaligned, randomzc, N, gaussian, G, output); }
-#endif
+#ifdef MM_SIMD
+static void m1(void) { example(convolve_1d_valid_mode_simd_unaligned, input, N, gaussian, G, output); }
+static void m2(void) { example(convolve_1d_valid_mode_simd_unaligned, input, N, sine, S, output); }
+static void m3(void) { example(convolve_1d_valid_mode_simd_unaligned, input, N, cosine, C, output); }
+static void m4(void) { example(convolve_1d_valid_mode_simd_unaligned, random01, N, gaussian, G, output); }
+static void m5(void) { example(convolve_1d_valid_mode_simd_unaligned, randomzc, N, gaussian, G, output); }
 #endif
 
 static std::vector<void (*)(void)> examples {
     f1, f2, f3, f4, f5
-#if defined(__GNUC__)
-#if defined(__x86_64__) || defined(__i386__)
+#ifdef MM_SIMD
     ,
-    s1, s2, s3, s4, s5
-#endif
+    m1, m2, m3, m4, m5
 #endif
 };
 
