@@ -71,7 +71,7 @@ static void convolve_1d_valid_mode_simd_unaligned(
     const auto size{ n - m + 1 };
 
     auto simd_kernel{ std::make_unique<__m128[]>(m) };
-    for (auto i=0; i < m; i++)
+    for (auto i=0; i < m; ++i)
         simd_kernel[i] = _mm_set1_ps(kernel[i]);
     
     alignas(16) __m128 simd_input;
