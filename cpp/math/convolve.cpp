@@ -7,13 +7,13 @@
 // cl version 19.35.32215 for x64
 
 // https://www.jackcampbellsounds.com/2017/06/12/conv1.html
-// CONVOLUTION REVERB PART 1 - OVERVIEW
+// CONVOLUTION REVERB PART 1 - OVERVIEW by Jack Campbell
 
 // https://www.jackcampbellsounds.com/2017/06/12/conv2.html
-// CONVOLUTION REVERB PART 2 - DIRECT-FORM CONVOLUTION
+// CONVOLUTION REVERB PART 2 - DIRECT-FORM CONVOLUTION by Jack Campbell
 
 // https://www.jackcampbellsounds.com/2017/06/25/conv3.html
-// CONVOLUTION REVERB PART 3 - FAST CONVOLUTION
+// CONVOLUTION REVERB PART 3 - FAST CONVOLUTION by Jack Campbell
 
 // https://www.jackcampbellsounds.com/2019/01/24/simdsseboilerplate.html
 // GETTING STARTED WITH SIMD INTRINSICS by Jack Campbell
