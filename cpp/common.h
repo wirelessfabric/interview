@@ -17,6 +17,7 @@
 #include <execution>
 #include <random>
 #include <numbers>
+#include <chrono>
 #include <limits>
 #include <climits>
 #include <cstring>

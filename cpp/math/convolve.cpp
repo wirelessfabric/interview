@@ -148,9 +148,13 @@ static void example(void (*f)(const float*, int, const float*, int, float*),
     static auto counter = 1;
     std::cout << "Example " << counter++ << ": ";
 
+    auto start = std::chrono::steady_clock::now();
     f(input, n, kernel, m, output);
+    auto end = std::chrono::steady_clock::now();
 
-    std::cout << "mean " << mean(output, n) << std::endl;
+    std::chrono::duration<double> elapsed_us{ (end - start) * 1000000.0 };
+    std::cout << "\ttime " << elapsed_us.count() << "us";
+    std::cout << "\tmean " << mean(output, n) << std::endl;
     if (debug)
         print(output, n, "output");
  }
