@@ -147,12 +147,12 @@ static void example(void (*f)(const float*, int, const float*, int, float*),
     static auto counter = 1;
     std::cout << "Example " << counter++ << ": ";
 
-    auto start{ std::chrono::high_resolution_clock::now() };
+    auto t0{ std::chrono::high_resolution_clock::now() };
     f(input, n, kernel, m, output);
-    auto end{ std::chrono::high_resolution_clock::now() };
+    auto t1{ std::chrono::high_resolution_clock::now() };
 
-    std::chrono::duration<double> elapsed_us{ (end - start) * 1000000.0 };
-    std::cout << "\ttime " << elapsed_us.count() << "us";
+    std::chrono::duration<double> elapsed{ (t1 - t0) * 1000000.0 };
+    std::cout << "\ttime " << elapsed.count() << "us";
     std::cout << "\tmean " << mean(output, n) << std::endl;
     if (debug)
         print(output, n, "output");
