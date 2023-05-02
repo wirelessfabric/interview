@@ -94,7 +94,6 @@ static int convolve_1d_valid_mode_simd_unaligned(
     return size;
 }
 
-#ifdef __GNUC__
 static int convolve_1d_valid_mode_simd(
     const float *input, int n,
     const float *kernel, int m,
@@ -105,7 +104,16 @@ static int convolve_1d_valid_mode_simd(
     
     // preprocess the input
     // store offset versions of the input signal to allow for aligned loads
+#ifdef __GNUC__
     alignas(16) __m128 simd_input[4][n];
+#else
+    alignas(16) std::unique_ptr<__m128[]> simd_input[4] {
+        std::make_unique<__m128[]>(n),
+        std::make_unique<__m128[]>(n),
+        std::make_unique<__m128[]>(n),
+        std::make_unique<__m128[]>(n),
+    };
+#endif
     for (int k=0; k < 4; ++k) {
         int j = 0;
         for (int i=0; i < n; i += 4) {
@@ -116,7 +124,11 @@ static int convolve_1d_valid_mode_simd(
         }
     }
 
+#ifdef __GNUC__
     alignas(16) __m128 simd_kernel[m];
+#else
+    auto simd_kernel{ std::make_unique<__m128[]>(m) };
+#endif
     for (int i=0; i < m; ++i)
         simd_kernel[i] = _mm_set1_ps(kernel[i]);
     
@@ -134,7 +146,6 @@ static int convolve_1d_valid_mode_simd(
 
     return size;
 }
-#endif // __GNUC__
 #endif // MM_INTRIN
 
 static void example(int (*f)(const float*, int, const float*, int, float*),
@@ -187,29 +198,22 @@ static void f4(void) { example(convolve_1d_valid_mode_naive, random01, N, gaussi
 static void f5(void) { example(convolve_1d_valid_mode_naive, randomzc, N, gaussian, G, output); }
 
 #ifdef MM_INTRIN
-static void m1(void) { example(convolve_1d_valid_mode_simd_unaligned, input, N, gaussian, G, output); }
-static void m2(void) { example(convolve_1d_valid_mode_simd_unaligned, input, N, sine, S, output); }
-static void m3(void) { example(convolve_1d_valid_mode_simd_unaligned, input, N, cosine, C, output); }
-static void m4(void) { example(convolve_1d_valid_mode_simd_unaligned, random01, N, gaussian, G, output); }
-static void m5(void) { example(convolve_1d_valid_mode_simd_unaligned, randomzc, N, gaussian, G, output); }
-#ifdef __GNUC__
-static void g1(void) { example(convolve_1d_valid_mode_simd, input, N, gaussian, G, output); }
-static void g2(void) { example(convolve_1d_valid_mode_simd, input, N, sine, S, output); }
-static void g3(void) { example(convolve_1d_valid_mode_simd, input, N, cosine, C, output); }
-static void g4(void) { example(convolve_1d_valid_mode_simd, random01, N, gaussian, G, output); }
-static void g5(void) { example(convolve_1d_valid_mode_simd, randomzc, N, gaussian, G, output); }
-#endif
+static void f6(void) { example(convolve_1d_valid_mode_simd_unaligned, input, N, gaussian, G, output); }
+static void f7(void) { example(convolve_1d_valid_mode_simd_unaligned, input, N, sine, S, output); }
+static void f8(void) { example(convolve_1d_valid_mode_simd_unaligned, input, N, cosine, C, output); }
+static void f9(void) { example(convolve_1d_valid_mode_simd_unaligned, random01, N, gaussian, G, output); }
+static void f10(void) { example(convolve_1d_valid_mode_simd_unaligned, randomzc, N, gaussian, G, output); }
+static void f11(void) { example(convolve_1d_valid_mode_simd, input, N, gaussian, G, output); }
+static void f12(void) { example(convolve_1d_valid_mode_simd, input, N, sine, S, output); }
+static void f13(void) { example(convolve_1d_valid_mode_simd, input, N, cosine, C, output); }
+static void f14(void) { example(convolve_1d_valid_mode_simd, random01, N, gaussian, G, output); }
+static void f15(void) { example(convolve_1d_valid_mode_simd, randomzc, N, gaussian, G, output); }
 #endif
 
 static std::vector<void (*)(void)> examples {
     f1, f2, f3, f4, f5
 #ifdef MM_INTRIN
-    ,
-    m1, m2, m3, m4, m5
-#ifdef __GNUC__
-    ,
-    g1, g2, g3, g4, g5
-#endif
+    , f6, f7, f8, f9, f10, f11, f12, f13, f14, f15
 #endif
 };
 
