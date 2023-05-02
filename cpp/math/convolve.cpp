@@ -40,7 +40,7 @@
 
 static bool debug = false;
 
-static void convolve_1d_valid_mode_naive(
+static int convolve_1d_valid_mode_naive(
     const float *input, int n,
     const float *kernel, int m,
     float *output)
@@ -58,11 +58,11 @@ static void convolve_1d_valid_mode_naive(
         output[i] = sum;
     }
 
-    fill(&output[size], 0.f, m - 1);
+    return size;
 }
 
 #ifdef MM_INTRIN
-static void convolve_1d_valid_mode_simd_unaligned(
+static int convolve_1d_valid_mode_simd_unaligned(
     const float *input, int n,
     const float *kernel, int m,
     float *output)
@@ -91,13 +91,11 @@ static void convolve_1d_valid_mode_simd_unaligned(
         _mm_storeu_ps(&output[i], sum);
     }
 
-    fill(&output[size], 0.f, m - 1);
+    return size;
 }
-#endif
 
 #ifdef __GNUC__
-#ifdef MM_INTRIN
-static void convolve_1d_valid_mode_simd(
+static int convolve_1d_valid_mode_simd(
     const float *input, int n,
     const float *kernel, int m,
     float *output)
@@ -134,12 +132,12 @@ static void convolve_1d_valid_mode_simd(
         _mm_storeu_ps(&output[i], sum);
     }
 
-    fill(&output[size], 0.f, m - 1);
+    return size;
 }
-#endif
-#endif
+#endif // __GNUC__
+#endif // MM_INTRIN
 
-static void example(void (*f)(const float*, int, const float*, int, float*),
+static void example(int (*f)(const float*, int, const float*, int, float*),
                     float *input, int n,
                     float *kernel, int m,
                     float *output)
@@ -148,8 +146,11 @@ static void example(void (*f)(const float*, int, const float*, int, float*),
     std::cout << "Example " << counter++ << ": ";
 
     auto t0{ std::chrono::high_resolution_clock::now() };
-    f(input, n, kernel, m, output);
+    auto size{ f(input, n, kernel, m, output) };
     auto t1{ std::chrono::high_resolution_clock::now() };
+
+    if (size == n - m + 1) // valid mode
+        fill(&output[size], 0.f, m - 1);
 
     std::chrono::duration<double> elapsed{ (t1 - t0) * 1000000.0 };
     std::cout << "\ttime " << elapsed.count() << "us";
