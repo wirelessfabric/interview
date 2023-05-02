@@ -114,13 +114,12 @@ static int convolve_1d_valid_mode_simd(
         std::make_unique<__m128[]>(n),
     };
 #endif
-    for (int k=0; k < 4; ++k) {
-        int j = 0;
-        for (int i=0; i < n; i += 4) {
-            simd_input[k][j++] = _mm_set_ps(input[i+0+k], 
-                                            input[i+1+k], 
-                                            input[i+2+k], 
-                                            input[i+3+k]);
+    for (auto i=0; i < 4; ++i) {
+        for (auto j=0, k=0; k < n; k += 4, ++j) {
+            simd_input[i][j] = _mm_set_ps(input[k+0+i], 
+                                          input[k+1+i], 
+                                          input[k+2+i], 
+                                          input[k+3+i]);
         }
     }
 
