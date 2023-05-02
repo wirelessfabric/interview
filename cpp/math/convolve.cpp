@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// g++ -std=c++20 -O3 -I.. convolve.cpp -o convolve
+// g++ -std=c++20 -O3 -I.. -mavx convolve.cpp -o convolve
 // g++ --version 11.3.0 on soho ubuntu 22.04
 //
 // %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
@@ -70,7 +70,11 @@ static void convolve_1d_valid_mode_simd_unaligned(
     assert(input && kernel && output && m < n);
     const auto size{ n - m + 1 };
 
+#ifdef __GNUC__
+    alignas(16) __m128 simd_kernel[m];
+#else
     auto simd_kernel{ std::make_unique<__m128[]>(m) };
+#endif
     for (auto i=0; i < m; ++i)
         simd_kernel[i] = _mm_set1_ps(kernel[i]);
     
@@ -114,7 +118,7 @@ static void convolve_1d_valid_mode_simd(
         }
     }
 
-    auto simd_kernel{ std::make_unique<__m128[]>(m) };
+    alignas(16) __m128 simd_kernel[m];
     for (int i=0; i < m; ++i)
         simd_kernel[i] = _mm_set1_ps(kernel[i]);
     
