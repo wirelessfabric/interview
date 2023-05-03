@@ -79,9 +79,6 @@ static int convolve_1d_valid_mode_simd_unaligned(
     for (auto i=0; i < m; ++i)
         simd_kernel[i] = _mm_set1_ps(kernel[i]);
 
-    if (debug)
-        print((float*)simd_kernel.get(), n, "\nsimd_kernel");
-    
     alignas(16) __m128 simd_input;
     alignas(16) __m128 product;
     alignas(16) __m128 sum;
@@ -119,23 +116,15 @@ static int convolve_1d_valid_mode_simd(
     };
 #endif
 
-    for (int i=0; i < m; ++i)
-        simd_kernel[i] = _mm_set1_ps(kernel[i]);
-
     for (auto i=0; i < 4; ++i)
         for (auto j=0, k=0; k < n; k += 4, ++j)
             simd_input[i][j] = _mm_set_ps(input[k+3+i], 
                                           input[k+2+i], 
                                           input[k+1+i], 
                                           input[k+0+i]);
-    if (debug) {
-        print((float*)simd_kernel.get(), n, "\nsimd_kernel");
-        print((float*)simd_input[0].get(), n, "simd_input[0]");
-        print((float*)simd_input[1].get(), n, "simd_input[1]");
-        print((float*)simd_input[2].get(), n, "simd_input[2]");
-        print((float*)simd_input[3].get(), n, "simd_input[3]");
-    }
-    
+    for (int i=0; i < m; ++i)
+        simd_kernel[i] = _mm_set1_ps(kernel[i]);
+
     alignas(16) __m128 sum;
     for (int i=0; i < size; i += 4) {
         sum = _mm_setzero_ps();
