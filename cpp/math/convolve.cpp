@@ -4,11 +4,11 @@
 // g++ --version 11.3.0 on soho x86_64 ubuntu 22.04
 //
 // g++ -std=c++20 -O3 -I.. convolve.cpp -o convolve
-// g++ --version 10.2.1-6+rpi1 20210110 on rpi4 armv7l Raspbian 11 (buster)
+// g++ --version 10.2.1-6+rpi1 20210110 on rpi4 armv7l raspbian 11 (buster)
 //
 // %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
 // cl /EHsc /std:c++20 /I.. convolve.cpp
-// cl version 19.35.32215 for x64
+// cl version 19.35.32215 on gogo x64 windows 11
 
 // https://www.jackcampbellsounds.com/2017/06/12/conv1.html
 // CONVOLUTION REVERB PART 1 - OVERVIEW by Jack Campbell
