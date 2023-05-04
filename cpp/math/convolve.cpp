@@ -1,6 +1,10 @@
 // SPDX-License-Identifier: MIT
+//
 // g++ -std=c++20 -O3 -I.. -mavx convolve.cpp -o convolve
-// g++ --version 11.3.0 on soho ubuntu 22.04
+// g++ --version 11.3.0 on soho x86_64 ubuntu 22.04
+//
+// g++ -std=c++20 -O3 -I.. convolve.cpp -o convolve
+// g++ --version 10.2.1-6+rpi1 20210110 armv7l Raspbian 11 buster
 //
 // %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
 // cl /EHsc /std:c++20 /I.. convolve.cpp
