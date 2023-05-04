@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 //
 // g++ -std=c++20 -O3 -I.. random.cpp -o random
-// g++ --version 11.3.0 on soho ubuntu 22.04
+// g++ --version 11.3.0 on soho x86_64 ubuntu 22.04
 //
 // g++ -std=c++20 -O3 -I.. random.cpp -o random
-// g++ --version 10.2.1-6+rpi1 20210110 armv7l Raspbian 11 buster
+// g++ --version 10.2.1-6+rpi1 20210110 on rpi4 armv7l Raspbian 11 (buster)
 //
 // clang++ -std=c++2a -O3 -I.. random.cpp -o random
 // Apple clang++ version 14.0.0 (clang-1400.0.29.202) on Apple M1 macOS Ventura 13.2.1
