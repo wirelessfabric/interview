@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 //
 // gcc -O3 dot_product.c -o dot_product
-// gcc --version 11.3.0 on soho ubuntu 22.04
+// gcc --version 11.3.0 on soho x86_64 ubuntu 22.04
 //
 // clang -O3 dot_product.c -o dot_product
-// Apple clang version 14.0.0 (clang-1400.0.29.202) on Apple M1 macOS Ventura 13.2.1
+// Apple clang version 14.0.0 (clang-1400.0.29.202) on lobo Apple M1 macOS Ventura 13.2.1
 //
 // %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
 // cl /EHsc dot_product.c
-// cl version 19.35.32215 for x64
+// cl version 19.35.32215 on gogo x64 windows 11
 
 #include "common.h"
 #include "print.h"
@@ -23,7 +23,7 @@ float dot_f32_neon_64(const float* v1, const float* v2, size_t n)
     float32x4_t sum = vdupq_n_f32(0.0f);
     assert(v1 && v2);
     assert(n % 4 == 0);
-    for (int i = 0; i < n; i += 4) {
+    for (int i=0; i < n; i += 4) {
         q1 = vld1q_f32(&v1[i]);
         q2 = vld1q_f32(&v2[i]);
         sum = vmlaq_f32(sum, q1, q2);
@@ -34,13 +34,10 @@ float dot_f32_neon_64(const float* v1, const float* v2, size_t n)
 
 float dot_f32(const float* v1, const float* v2, size_t n)
 {
+    assert(v1 && v2);
     float sum = 0.f;
-    assert(v1 && v2 && n > 0);
-    do {
-        const float f1 = *v1++;
-        const float f2 = *v2++;
-        sum += f1 * f2;
-    } while (--n);
+    for (int i=0; i < n; ++i)
+        sum += v1[i] * v2[i];
     return sum;
 }
 
