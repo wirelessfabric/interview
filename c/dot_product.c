@@ -2,6 +2,7 @@
 //
 // gcc -O3 dot_product.c -o dot_product
 // gcc --version 11.3.0 on soho x86_64 ubuntu 22.04
+// gcc --version 10.2.1 on rpi4 armv7l raspbian 11 (buster)
 // gcc --version 8.4.0 on tegra1 aarch64 ubuntu 18.04
 //
 // clang -O3 dot_product.c -o dot_product
