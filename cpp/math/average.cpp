@@ -1,6 +1,10 @@
 // SPDX-License-Identifier: MIT
+//
 // g++ -std=c++20 -O3 -I.. average.cpp -o average
 // g++ --version 11.3.0 on soho ubuntu 22.04
+//
+// clang++ -std=c++2a -O3 -I.. average.cpp -o average
+// Apple clang++ version 14.0.0 (clang-1400.0.29.202) on lobo Apple M1 macOS Ventura 13.2.1
 //
 // %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
 // cl /EHsc /std:c++20 /I.. average.cpp

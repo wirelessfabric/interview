@@ -4,6 +4,9 @@
 // g++ --version 11.3.0 on soho x86_64 ubuntu 22.04
 // g++ --version 10.2.1 on rpi4 armv7l raspbian 11 (buster)
 //
+// clang++ -std=c++2a -O3 -I.. convolve.cpp -o convolve
+// Apple clang++ version 14.0.0 (clang-1400.0.29.202) on lobo Apple M1 macOS Ventura 13.2.1
+//
 // %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
 // cl /EHsc /std:c++20 /I.. convolve.cpp
 // cl version 19.35.32215 on gogo x64 windows 11

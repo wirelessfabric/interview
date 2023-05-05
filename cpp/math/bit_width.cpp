@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+//
 // g++ -std=c++2a -O3 -I.. bit_width.cpp -o bit_width
 // g++ --version 11.3.0 on soho ubuntu 22.04
 //

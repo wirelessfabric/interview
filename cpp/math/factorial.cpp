@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: MIT
+//
 // g++ -std=c++23 -O3 -lstdc++ -lm factorial.cpp -o factorial
 // g++ --version 11.3.0 on soho ubuntu 22.04
 
