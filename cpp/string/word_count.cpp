@@ -1,9 +1,17 @@
 // SPDX-License-Identifier: MIT
+//
 // g++ -std=c++17 -O3 -lstdc++ -lm word_count.cpp -o word_count
 // g++ --version 9.3.0
+//
+// %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
+// cl /EHsc /std:c++20 /I.. word_count.cpp
+// cl version 19.35.32215 on gogo x64 windows 11
 
 // C++ Standard Parallelism - Bryce Adelstein Lelbach - CppCon 2021
 // https://www.youtube.com/watch?v=KK3JXvSiJG4
+//
+// C++ Standard Parallelism - Bryce Adelstein Lelbach - GTC 2023
+// https://www.youtube.com/watch?v=nwrgLH5yAlM
 
 #include <iostream>
 #include <iomanip>
@@ -12,7 +20,7 @@
 #include <execution>
 #include <numeric>
 
-// namespace thid_thread = std::this_thread;
+// namespace this_thread = std::this_thread;
 
 namespace ex = std::execution;
 
