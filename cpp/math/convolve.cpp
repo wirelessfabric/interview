@@ -2,6 +2,8 @@
 //
 // g++ -std=c++20 -O3 -I.. -mavx convolve.cpp -o convolve
 // g++ --version 11.3.0 on soho x86_64 ubuntu 22.04
+//
+// g++ -std=c++20 -O3 -I.. convolve.cpp -o convolve
 // g++ --version 10.2.1 on rpi4 armv7l raspbian 11 (buster)
 //
 // clang++ -std=c++2a -O3 -I.. convolve.cpp -o convolve
