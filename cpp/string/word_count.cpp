@@ -2,6 +2,8 @@
 //
 // g++ -std=c++17 -O3 word_count.cpp -o word_count -ltbb
 // g++ --version 11.3.0 on soho x86_64 ubuntu 22.04
+// g++ --version 10.2.1 on rpi4 armv7l raspbian 11 (buster)
+// g++ --version 9.4.0 on odroid1 aarch64 ubuntu 20.04
 //
 // %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
 // cl /EHsc /std:c++20 /I.. word_count.cpp
