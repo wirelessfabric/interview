@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 //
-// g++ -std=c++17 -O3 word_count.cpp -o word_count
+// g++ -std=c++17 -O3 word_count.cpp -o word_count -ltbb
 // g++ --version 11.3.0 on soho x86_64 ubuntu 22.04
 //
 // %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
