@@ -87,10 +87,10 @@ static int convolve_1d_valid_mode_simd_unaligned(
         simd_kernel[i] = _mm_set1_ps(kernel[i]);
 
     for (auto i=0; i < size; i += 4) {
-        alignas(16) __m128 sum = _mm_setzero_ps();
+        __m128 sum = _mm_setzero_ps();
         for (auto j=0; j < m; ++j) {
-            alignas(16) __m128 simd_input = _mm_loadu_ps(&input[i + j]);
-            alignas(16) __m128 product = _mm_mul_ps(simd_input, simd_kernel[j]);
+            __m128 simd_input = _mm_loadu_ps(&input[i + j]);
+            __m128 product = _mm_mul_ps(simd_input, simd_kernel[j]);
             sum = _mm_add_ps(sum, product);
         }
         _mm_storeu_ps(&output[i], sum);
@@ -130,7 +130,7 @@ static int convolve_1d_valid_mode_simd(
         simd_kernel[i] = _mm_set1_ps(kernel[i]);
 
     for (int i=0; i < size; i += 4) {
-        alignas(16) __m128 sum = _mm_setzero_ps();
+        __m128 sum = _mm_setzero_ps();
         for (int j=0; j < m; ++j) {
             int k = i / 4 + (int)(j * 0.25);
             sum = _mm_add_ps(sum, _mm_mul_ps(simd_input[j & 3][k], simd_kernel[j]));
