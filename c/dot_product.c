@@ -24,10 +24,10 @@ float dot_f32_neon_64(const float* v1, const float* v2, size_t n)
 {
     assert(v1 && v2);
     assert(n % 4 == 0);
-    alignas(16) float32x4_t sum = vdupq_n_f32(0.0f);
+    float32x4_t sum = vdupq_n_f32(0.0f);
     for (int i=0; i < n; i += 4) {
-        alignas(16) float32x4_t q1 = vld1q_f32(&v1[i]);
-        alignas(16) float32x4_t q2 = vld1q_f32(&v2[i]);
+        float32x4_t q1 = vld1q_f32(&v1[i]);
+        float32x4_t q2 = vld1q_f32(&v2[i]);
         sum = vmlaq_f32(sum, q1, q2);
     }
     return (float)vaddvq_f32(sum);
