@@ -22,8 +22,8 @@ static bool debug = true;
 #include <arm_neon.h>
 float dot_f32_neon_64(const float* v1, const float* v2, size_t n)
 {
-    float32x4_t q1, q2;
-    float32x4_t sum = vdupq_n_f32(0.0f);
+    alignas(16) float32x4_t q1, q2;
+    alignas(16) float32x4_t sum = vdupq_n_f32(0.0f);
     assert(v1 && v2);
     assert(n % 4 == 0);
     for (int i=0; i < n; i += 4) {
