@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
-// g++ -std=c++17 -O3 -I.. -lstdc++ -lm bag_of_tokens.cpp -o bag_of_tokens
-// g++ --version 11.3.0 on soho ubuntu 22.04
+//
+// g++ -std=c++17 -O3 -I.. bag_of_tokens.cpp -o bag_of_tokens
+// g++ --version 11.3.0 on soho x86_64 ubuntu 22.04
 
 #include "common.h"
 #include "print.h"

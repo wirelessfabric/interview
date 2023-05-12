@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
-// g++ -std=c++17 -O3 -I.. -lstdc++ -lm intersect.cpp -o intersect
+//
+// g++ -std=c++17 -O3 -I.. intersect.cpp -o intersect
 // g++ --version 11.3.0 on soho ubuntu 22.04
 
 #include "common.h"

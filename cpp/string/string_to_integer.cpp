@@ -1,108 +1,14 @@
 // SPDX-License-Identifier: MIT
-// g++ -std=c++17 -O3 -lstdc++ -lm stringToInteger.cpp -o stringToInteger
-// g++ --version 9.3.0
+//
+// g++ -std=c++17 -O3 -I.. string_to_integer.cpp -o string_to_integer
+// g++ --version 11.3.0 on soho x86_64 ubuntu 22.04
 
 // code::dive conference 2015 - Andrei Alexandrescu - Writing Fast Code II
 // https://www.youtube.com/watch?v=9tvbz8CSI8M
 
-#include <iostream>
-#include <array>
-#include <vector>
-#include <queue>
-#include <map>
-#include <unordered_map>
-#include <numeric>
-#include <functional>
-#include <algorithm>
-#include <limits>
-#include <cstring>
-
-template<typename T> 
-void print(const std::vector<T> &v, int start, int end, const char *text = nullptr) {
-    if (text)
-        std::cout << text << " = ";
-    std::cout << "[";
-    int n = 0;
-    for (auto i=start; i <= end; ++i) {
-        if (n++)
-            std::cout << ",";
-        std::cout << v[i];
-    }
-    std::cout << "]";
-    if (text)
-        std::cout << std::endl;
-}
-
-template<typename T, size_t N>
-void print(const std::array<T, N> &a, const char *text = nullptr) {
-    if (text)
-        std::cout << text << " = ";
-    std::cout << "[";
-    int n = 0;
-    for (const auto &e : a) {
-        if (n++)
-            std::cout << ",";
-        std::cout << e;
-    }
-    std::cout << "]";
-    if (text)
-        std::cout << std::endl;
-}
-
-template<typename T>
-void print(const std::vector<T> &v, const char *text = nullptr) {
-    if (text)
-        std::cout << text << " = ";
-    std::cout << "[";
-    int n = 0;
-    for (const auto &e : v) {
-        if (n++)
-            std::cout << ",";
-        std::cout << e;
-    }
-    std::cout << "]";
-    if (text)
-        std::cout << std::endl;
-}
-
-template<typename T> 
-void print(const std::vector<std::vector<T>> &vv, const char *text = nullptr) {
-    if (text)
-        std::cout << text << " = ";
-    std::cout << "[";
-    int n = 0;
-    for (const auto &v : vv) {
-        if (n++)
-            std::cout << ",";
-        print(v);
-    }
-    std::cout << "]";
-    if (text)
-        std::cout << std::endl;
-}
-
-template<typename K, typename V>
-void print(const std::map<K,V> &m, const char *text = nullptr) {
-    if (text)
-        std::cout << text << " = ";
-    std::cout << "[";
-    int n = 0;
-    for (const auto &it : m) {
-        if (n++)
-            std::cout << ",";
-        std::cout << "[" << it.first << "," << it.second << "]";
-    }
-    std::cout << "]";
-    if (text)
-        std::cout << std::endl;
-}
-
-static const auto speedup = []() {
-    std::ios_base::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    std::cout.tie(nullptr);
-    return nullptr;
-}();
+#include "common.h"
+#include "print.h"
+#include "speedup.h"
 
 constexpr unsigned long error = std::numeric_limits<unsigned long>::max();
 

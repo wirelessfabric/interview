@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
-// g++ -std=c++23 -O3 -I.. -lstdc++ -lm get_maximum_generated.cpp -o get_maximum_generated
+//
+// g++ -std=c++17 -O3 -I.. get_maximum_generated.cpp -o get_maximum_generated
 // g++ --version 11.3.0 on soho ubuntu 22.04
 //
 // %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"

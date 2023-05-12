@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
-// g++ -std=c++17 -O3 insertion_sort.cpp -o insertion_sort -lm -ltbb
+//
+// g++ -std=c++17 -O3 insertion_sort.cpp -o insertion_sort
 // g++ --version 11.3.0 on soho ubuntu 22.04
 //
 // %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"

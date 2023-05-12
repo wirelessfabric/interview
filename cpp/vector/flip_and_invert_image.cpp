@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
-// g++ -std=c++17 -O3 -I.. -lstdc++ -lm flip_and_invert_image.cpp -o flip_and_invert_image
+//
+// g++ -std=c++17 -O3 -I.. flip_and_invert_image.cpp -o flip_and_invert_image
 // g++ --version 11.3.0 on soho ubuntu 22.04
 
 #include "common.h"

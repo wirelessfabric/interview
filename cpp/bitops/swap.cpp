@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: MIT
-// g++ -std=c++17 -O3 -o swap swap.cpp
+//
+// g++ -std=c++11 -O3 -o swap swap.cpp
+// g++ --version 11.3.0 on soho x86_64 ubuntu 22.04
 
 #include <cstdint>
 

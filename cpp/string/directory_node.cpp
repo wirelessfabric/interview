@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
-// g++ -std=c++17 -O3 -lstdc++ -lm directoryNode.cpp -o directoryNode
-// g++ --version 9.3.0
+//
+// g++ -std=c++17 -O3 directory_node.cpp -o directory_node
+// g++ --version 11.3.0 on soho x86_64 ubuntu 22.04
 
 #include <iostream>
 #include <string>

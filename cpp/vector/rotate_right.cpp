@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
-// g++ -std=c++17 -O3 -I.. rotate_right.cpp -o rotate_right -lm -ltbb
+//
+// g++ -std=c++17 -O3 -I.. rotate_right.cpp -o rotate_right
 // g++ --version 11.3.0 on soho ubuntu 22.04
 //
 // %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"

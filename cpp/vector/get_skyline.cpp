@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
-// g++ -std=c++17 -O3 -I.. -lstdc++ -lm get_skyline.cpp -o get_skyline
+//
+// g++ -std=c++17 -O3 -I.. get_skyline.cpp -o get_skyline
 // g++ --version 11.3.0 on soho ubuntu 22.04
 
 #include "common.h"

@@ -1,24 +1,11 @@
 // SPDX-License-Identifier: MIT
-// g++ -std=c++17 -O3 -lstdc++ -lm minCostMoveChips.cpp -o minCostMoveChips
-// g++ --version 9.3.0
+//
+// g++ -std=c++17 -O3 -I.. min_cost_move_chips.cpp -o min_cost_move_chips
+// g++ --version 11.3.0 on soho x86_64 ubuntu 22.04
 
-#include <iostream>
-#include <array>
-#include <vector>
-#include <queue>
-#include <map>
-#include <unordered_map>
-#include <numeric>
-#include <functional>
-#include <algorithm>
-#include <limits>
-
-static const auto speedup = []() {
-    std::ios_base::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    std::cout.tie(nullptr);
-    return nullptr;
-}();
+#include "common.h"
+#include "print.h"
+#include "speedup.h"
 
 class Solution {
 public:
@@ -37,66 +24,6 @@ public:
         return std::min(odd, even);
     }
 };
-
-template<typename T> 
-void print(const std::vector<T> &v, int start, int end) {
-    std::cout << "[";
-    int n = 0;
-    for (auto i=start; i <= end; ++i) {
-        if (n++)
-            std::cout << ",";
-        std::cout << v[i];
-    }
-    std::cout << "]";
-}
-
-template<typename T>
-void print(const std::array<T, 7> &v) {
-    std::cout << "[";
-    int n = 0;
-    for (const auto &e : v) {
-        if (n++)
-            std::cout << ",";
-        std::cout << e;
-    }
-    std::cout << "]";
-}
-
-template<typename T>
-void print(const std::vector<T> &v) {
-    std::cout << "[";
-    int n = 0;
-    for (const auto &e : v) {
-        if (n++)
-            std::cout << ",";
-        std::cout << e;
-    }
-    std::cout << "]";
-}
-
-template<typename T> 
-void print(const std::vector<std::vector<T>> &vv) {
-    std::cout << "[";
-    int n = 0;
-    for (const auto &v : vv) {
-        if (n++)
-            std::cout << ",";
-        print(v);
-    }
-    std::cout << "]";
-}
-
-template<typename K, typename V>
-void print(const std::map<K,V> &m) {
-    std::cout << "[";
-    int n = 0;
-    for (const auto &it : m) {
-        if (n++)
-            std::cout << ",";
-        std::cout << "[" << it.first << "," << it.second << "]";
-    }
-    std::cout << "]";
-}
 
 static void example(const std::vector<int> &arg, int expect) {
     static auto counter = 1;
