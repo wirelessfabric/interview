@@ -3,7 +3,7 @@
 #ifndef COMMON_H_
 #define COMMON_H_
 
-#if !defined(__GNUC__) || __GNUC__ < 9
+#if !defined(__GNUC__) || __GNUC__ > 8
 #define CPP_STD_EXECUTION
 #define CPP_STD_NUMBERS
 #endif
