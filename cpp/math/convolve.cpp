@@ -111,12 +111,14 @@ static int convolve_1d_valid_mode_simd(
     alignas(16) __m128 simd_kernel[m];
     alignas(16) __m128 simd_in[4][n];
 #else
-    auto simd_kernel{ std::make_unique<__m128[]>(m) };
-    alignas(16) std::unique_ptr<__m128[]> simd_in[4] {
-        std::make_unique<__m128[]>(n),
-        std::make_unique<__m128[]>(n),
-        std::make_unique<__m128[]>(n),
-        std::make_unique<__m128[]>(n),
+    auto simd_alloc{ std::make_unique<__m128[]>(m + n * 4) };
+    auto simd_kernel{ simd_alloc.get() };
+    auto simd_input{ &simd_kernel[m] };
+    __m128* simd_in[4] {
+        &simd_input[0],
+        &simd_input[n],
+        &simd_input[2 * n],
+        &simd_input[3 * n],
     };
 #endif
 
