@@ -6,6 +6,9 @@
 // g++ -std=c++20 -O3 -I.. convolve.cpp -o convolve
 // g++ --version 10.2.1 on rpi4 armv7l raspbian 11 (buster)
 //
+// g++ -std=c++2a -O3 -I.. convolve.cpp -o convolve
+// g++ --version 8.4.0 on tegra1 aarch64 ubuntu 18.04
+//
 // clang++ -std=c++2a -O3 -I.. convolve.cpp -o convolve
 // Apple clang++ version 14.0.0 (clang-1400.0.29.202) on lobo Apple M1 macOS Ventura 13.2.1
 //
