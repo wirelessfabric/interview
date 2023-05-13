@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
-#ifndef _PRINT_H_
-#define _PRINT_H_
+#ifndef PRINT_H_
+#define PRINT_H_
 
 #include <iostream>
 #include <vector>
@@ -129,4 +129,4 @@ static void print(const std::unordered_map<K, V>& m, const char* text = nullptr)
     print_end(text);
 }
 
-#endif // _PRINT_H_
+#endif // PRINT_H_

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
-#ifndef _SPEEDUP_H_
-#define _SPEEDUP_H_
+#ifndef SPEEDUP_H_
+#define SPEEDUP_H_
 
 #include <iostream>
 
@@ -12,4 +12,4 @@ static const auto speedup = []() {
     return nullptr;
 }();
 
-#endif // _SPEEDUP_H_
+#endif // SPEEDUP_H_

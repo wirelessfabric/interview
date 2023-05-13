@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
-#ifndef _UTILS_H_
-#define _UTILS_H_
+#ifndef UTILS_H_
+#define UTILS_H_
 
 #include <map>
 #include <vector>
@@ -42,4 +42,4 @@ static std::mt19937& prng(void) {
     return g;
 }
 
-#endif // _UTILS_H_
+#endif // UTILS_H_

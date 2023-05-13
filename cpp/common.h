@@ -1,7 +1,12 @@
 // SPDX-License-Identifier: MIT
 
-#ifndef _COMMON_H_
-#define _COMMON_H_
+#ifndef COMMON_H_
+#define COMMON_H_
+
+#if !defined(__GNUC__) || __GNUC__ < 9
+#define CPP_STD_EXECUTION
+#define CPP_STD_NUMBERS
+#endif
 
 #include <iostream>
 #include <string>
@@ -14,9 +19,13 @@
 #include <numeric>
 #include <functional>
 #include <algorithm>
+#ifdef CPP_STD_EXECUTION
 #include <execution>
-#include <random>
+#endif
+#ifdef CPP_STD_NUMBERS
 #include <numbers>
+#endif
+#include <random>
 #include <chrono>
 #include <limits>
 #include <climits>
@@ -28,4 +37,4 @@
 #include <ctime>
 #include <iomanip>
 
-#endif // _COMMON_H_
+#endif // COMMON_H_

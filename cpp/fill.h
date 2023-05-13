@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
-#ifndef _FILL_H_
-#define _FILL_H_
+#ifndef FILL_H_
+#define FILL_H_
 
 #include <random>
 #include <numbers>
@@ -43,4 +43,4 @@ static void fill_random(float* v, float min, float max, int n) {
     do *v++ = d(prng()); while (--n);
 }
 
-#endif // _FILL_H_
+#endif // FILL_H_
