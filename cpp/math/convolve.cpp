@@ -80,7 +80,7 @@ static int convolve_1d_valid_mode_simd_unaligned(
 #ifdef __GNUC__
     alignas(16) __m128 simd_kernel[m];
 #else
-    auto simd_kernel{ std::make_unique<__m128[]>(m) };
+    auto simd_kernel{ std::make_unique_for_overwrite<__m128[]>(m) };
 #endif
 
     for (auto i=0; i < m; ++i)
@@ -111,15 +111,14 @@ static int convolve_1d_valid_mode_simd(
     alignas(16) __m128 simd_kernel[m];
     alignas(16) __m128 simd_in[4][n];
 #else
-    auto simd_alloc{ std::make_unique<__m128[]>(m + n * 4) };
-    auto simd_kernel{ simd_alloc.get() };
-    auto simd_input{ &simd_kernel[m] };
+    auto simd_alloc{ std::make_unique_for_overwrite<__m128[]>(m + n * 4) };
     __m128* simd_in[4] {
-        &simd_input[0],
-        &simd_input[n],
-        &simd_input[2 * n],
-        &simd_input[3 * n],
+        &simd_alloc[0 * n],
+        &simd_alloc[1 * n],
+        &simd_alloc[2 * n],
+        &simd_alloc[3 * n],
     };
+    auto simd_kernel{ &simd_alloc[4 * n] };
 #endif
 
     for (auto i=0; i < 4; ++i)
