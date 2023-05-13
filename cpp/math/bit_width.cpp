@@ -2,6 +2,7 @@
 //
 // g++ -std=c++17 -O3 -I.. bit_width.cpp -o bit_width
 // g++ --version 11.3.0 on soho ubuntu 22.04
+// g++ --version 8.4.0 on tegra1 aarch64 ubuntu 18.04
 //
 // %comspec% /k "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
 // cl /EHsc /std:c++20 /I.. bit_width.cpp
