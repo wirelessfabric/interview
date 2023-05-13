@@ -89,8 +89,8 @@ static int convolve_1d_valid_mode_simd_unaligned(
     for (auto i=0; i < size; i += 4) {
         __m128 sum = _mm_setzero_ps();
         for (auto j=0; j < m; ++j) {
-            __m128 simd_input = _mm_loadu_ps(&input[i + j]);
-            __m128 product = _mm_mul_ps(simd_input, simd_kernel[j]);
+            __m128 simd_in = _mm_loadu_ps(&input[i + j]);
+            __m128 product = _mm_mul_ps(simd_in, simd_kernel[j]);
             sum = _mm_add_ps(sum, product);
         }
         _mm_storeu_ps(&output[i], sum);
@@ -109,10 +109,10 @@ static int convolve_1d_valid_mode_simd(
     
 #ifdef __GNUC__
     alignas(16) __m128 simd_kernel[m];
-    alignas(16) __m128 simd_input[4][n];
+    alignas(16) __m128 simd_in[4][n];
 #else
     auto simd_kernel{ std::make_unique<__m128[]>(m) };
-    alignas(16) std::unique_ptr<__m128[]> simd_input[4] {
+    alignas(16) std::unique_ptr<__m128[]> simd_in[4] {
         std::make_unique<__m128[]>(n),
         std::make_unique<__m128[]>(n),
         std::make_unique<__m128[]>(n),
@@ -122,10 +122,10 @@ static int convolve_1d_valid_mode_simd(
 
     for (auto i=0; i < 4; ++i)
         for (auto j=0, k=0; k < n; k += 4, ++j)
-            simd_input[i][j] = _mm_set_ps(input[k+3+i], 
-                                          input[k+2+i], 
-                                          input[k+1+i], 
-                                          input[k+0+i]);
+            simd_in[i][j] = _mm_set_ps(input[k+3+i], 
+                                       input[k+2+i], 
+                                       input[k+1+i], 
+                                       input[k+0+i]);
     for (int i=0; i < m; ++i)
         simd_kernel[i] = _mm_set1_ps(kernel[i]);
 
@@ -133,7 +133,7 @@ static int convolve_1d_valid_mode_simd(
         __m128 sum = _mm_setzero_ps();
         for (int j=0; j < m; ++j) {
             int k = i / 4 + (int)(j * 0.25);
-            sum = _mm_add_ps(sum, _mm_mul_ps(simd_input[j & 3][k], simd_kernel[j]));
+            sum = _mm_add_ps(sum, _mm_mul_ps(simd_in[j & 3][k], simd_kernel[j]));
         }
         _mm_storeu_ps(&output[i], sum);
     }
