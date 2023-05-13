@@ -3,13 +3,29 @@
 #ifndef FILL_H_
 #define FILL_H_
 
+#ifdef __cplusplus
 #include <random>
+
+#if __cplusplus >= 202002L
 #include <numbers>
+template <typename T>
+static constexpr auto pie() {
+    return (T)(2.0 * std::numbers::pi);
+}
+#else
+#ifndef _USE_MATH_DEFINES
+#define _USE_MATH_DEFINES   // M_PI
+#endif
+#include <math.h>
+template <typename T>
+static constexpr auto pie() {
+    return (T)(2.0 * M_PI);
+}
+#endif
 
 template <typename T>
 static T slice(int n) {
-    constexpr auto pie{ (T)(2.0 * std::numbers::pi) };
-    return pie / static_cast<T>(n);
+    return pie<T>() / static_cast<T>(n);
 }
 
 static void fill(float* v, float (*f)(float), int n) {
@@ -26,7 +42,7 @@ static void fill(float* v, float f, int n) {
 
 static void fill_gaussian(float* v, float fs, int n) {
     assert(v && fs > 0 && n > 0);
-    const auto tau{ (float)n / ((float)(2.0 * std::numbers::pi) * fs) };
+    const auto tau{ (float)n / (pie<float>() * fs) };
     const auto dt{ 1.f / fs };
     auto t{ -dt * (float)(n - 1) * 0.5f };
     do {
@@ -42,5 +58,7 @@ static void fill_random(float* v, float min, float max, int n) {
     std::uniform_real_distribution<float> d(min, max);
     do *v++ = d(prng()); while (--n);
 }
+
+#endif // __cplusplus
 
 #endif // FILL_H_
