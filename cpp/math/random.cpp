@@ -32,6 +32,9 @@
 // https://www.youtube.com/watch?v=N2AM6ixC6LI
 // Fast, High-quality Pseudo-random Numbers for Audio Developers : Roth Michaels @ ADC22
 
+// https://www.youtube.com/watch?v=xXHT_PGOm2c
+// Using, Generating and Testing with Pseudo-Random Numbers : Frances Buontempo @ ACCU 2023
+
 #include "common.h"
 #include "print.h"
 #include "utils.h"     // prng()
