@@ -63,7 +63,7 @@ static bool isPowerOfTwo_popcnt(uint32_t n) {
 // .L6:
 //  ret
 static bool isPowerOfTwo_blsr(uint32_t n) {
-    return n && (n & (n - 1)) == 0;
+    return n && ((n & (n - 1)) == 0);
 }
 
 int main(int argc, char *argv[]) {
