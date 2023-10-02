@@ -23,14 +23,14 @@
 
 // https://www.youtube.com/watch?v=wDj64pSeQ4I @ 2:00
 static int random_seed(int seed) {
-    srand(seed);
+    srand((unsigned int)seed);
     return rand();
 }
 
 // https://www.youtube.com/watch?v=wDj64pSeQ4I @ 2:30
 // https://www.youtube.com/watch?v=Gb-1grkVGSg @ 3:00
 static int random_time() {
-    srand(time(NULL));
+    srand((unsigned int)time(NULL));
     return rand();
 }
 
@@ -38,7 +38,7 @@ static int random_time() {
 static int random_nsec() {
     struct timespec ts;
     timespec_get(&ts, TIME_UTC);
-    srand(ts.tv_nsec);
+    srand((unsigned int)ts.tv_nsec);
     return rand();
 }
 
