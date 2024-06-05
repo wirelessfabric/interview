@@ -14,6 +14,9 @@
 //
 // C++ Standard Parallelism - Bryce Adelstein Lelbach - GTC 2023
 // https://www.youtube.com/watch?v=nwrgLH5yAlM
+//
+// Back to Basics: C++ Concurrency - David Olsen - CppCon 2023
+// https://www.youtube.com/watch?v=8rEGu20Uw4g
 
 #include <iostream>
 #include <iomanip>
@@ -35,8 +38,10 @@ public:
         return std::transform_reduce(ex::par_unseq,
             begin(s), end(s) - 1, begin(s) + 1,
             std::size_t(!std::isspace(s.front()) ? 1 : 0),
-            std::plus(),
-            [] (char l, char r) { return std::isspace(l) && !std::isspace(r); }
+            std::plus<>{},
+            [] (char l, char r) {
+                return std::isspace(l) && !std::isspace(r);
+            }
         );
     }
 };
