@@ -35,6 +35,9 @@
 // https://www.youtube.com/watch?v=xXHT_PGOm2c
 // Using, Generating and Testing with Pseudo-Random Numbers : Frances Buontempo @ ACCU 2023
 
+// https://www.youtube.com/watch?v=kjogmOXkipw
+// C++ Weekly - Ep 483 - Stop Using rand, Start Using Random
+
 #include "common.h"
 #include "print.h"
 #include "utils.h"     // prng()
