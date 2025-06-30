@@ -9,23 +9,27 @@
 #include <map>
 #include <unordered_map>
 
-static void print_begin(const char* text = nullptr) {
+static void print_begin(const char *text = nullptr)
+{
     if (text)
         std::cout << text << " = ";
     std::cout << "[";
 }
 
-static void print_end(const char* text = nullptr) {
+static void print_end(const char *text = nullptr)
+{
     std::cout << "]";
     if (text)
         std::cout << std::endl;
 }
 
-template<typename T>
-static void print(T *v, int n, const char* text = nullptr) {
+template <typename T>
+static void print(T *v, int n, const char *text = nullptr)
+{
     assert(v && n > 0);
     print_begin(text);
-    do {
+    do
+    {
         std::cout << *v++;
         if (--n)
             std::cout << ", ";
@@ -33,22 +37,27 @@ static void print(T *v, int n, const char* text = nullptr) {
     print_end(text);
 }
 
-static void print_suit(int c) {
+static void print_suit(int c)
+{
 #ifdef _MSC_VER
-    auto suits{ "\x03\x04\x05\x06" };
+    auto suits{"\x03\x04\x05\x06"};
 #else
-    const char* suits[]{ "\xE2\x99\xA0", "\xE2\x99\xA5", "\xE2\x99\xA6", "\xE2\x99\xA3" };
+    const char *suits[]{"\xE2\x99\xA0", "\xE2\x99\xA5", "\xE2\x99\xA6", "\xE2\x99\xA3"};
 #endif
     std::cout << suits[c / 13];
 };
 
-static void print_rank(int c) {
+static void print_rank(int c)
+{
     std::cout << "A23456789TJQK"[c % 13];
 };
 
-static void print_deck(const std::vector<int>& v, const char* text = nullptr) {
-    auto show = [pos=0](int c) mutable {
-        if (pos++) std::cout << ' ';
+static void print_deck(const std::vector<int> &v, const char *text = nullptr)
+{
+    auto show = [pos = 0](int c) mutable
+    {
+        if (pos++)
+            std::cout << ' ';
         print_rank(c);
         print_suit(c);
     };
@@ -57,11 +66,13 @@ static void print_deck(const std::vector<int>& v, const char* text = nullptr) {
     print_end(text);
 }
 
-template<typename T>
-static void print(const std::vector<T>& v, const char* text = nullptr) {
+template <typename T>
+static void print(const std::vector<T> &v, const char *text = nullptr)
+{
     print_begin(text);
-    auto n{ 0 };
-    for (const auto& e : v) {
+    auto n{0};
+    for (const auto &e : v)
+    {
         if (n++)
             std::cout << ",";
         std::cout << e;
@@ -69,11 +80,13 @@ static void print(const std::vector<T>& v, const char* text = nullptr) {
     print_end(text);
 }
 
-template<typename T> 
-static void print(const std::vector<T>& v, int start, int end, const char* text = nullptr) {
+template <typename T>
+static void print(const std::vector<T> &v, int start, int end, const char *text = nullptr)
+{
     print_begin(text);
-    auto n{ 0 };
-    for (auto i=start; i <= end; ++i) {
+    auto n{0};
+    for (auto i = start; i <= end; ++i)
+    {
         if (n++)
             std::cout << ",";
         std::cout << v[i];
@@ -81,11 +94,13 @@ static void print(const std::vector<T>& v, int start, int end, const char* text 
     print_end(text);
 }
 
-template<typename T> 
-static void print(const std::vector<std::vector<T>>& vv, const char* text = nullptr) {
+template <typename T>
+static void print(const std::vector<std::vector<T>> &vv, const char *text = nullptr)
+{
     print_begin(text);
-    auto n{ 0 };
-    for (const auto& v : vv) {
+    auto n{0};
+    for (const auto &v : vv)
+    {
         if (n++)
             std::cout << ",";
         print(v);
@@ -93,11 +108,13 @@ static void print(const std::vector<std::vector<T>>& vv, const char* text = null
     print_end(text);
 }
 
-template<typename T, size_t N>
-static void print(const std::array<T, N>& a, const char* text = nullptr) {
+template <typename T, size_t N>
+static void print(const std::array<T, N> &a, const char *text = nullptr)
+{
     print_begin(text);
-    auto n{ 0 };
-    for (const auto& e : a) {
+    auto n{0};
+    for (const auto &e : a)
+    {
         if (n++)
             std::cout << ",";
         std::cout << e;
@@ -105,11 +122,13 @@ static void print(const std::array<T, N>& a, const char* text = nullptr) {
     print_end(text);
 }
 
-template<typename K, typename V>
-static void print(const std::map<K,V>& m, const char* text = nullptr) {
+template <typename K, typename V>
+static void print(const std::map<K, V> &m, const char *text = nullptr)
+{
     print_begin(text);
-    auto n{ 0 };
-    for (const auto &[key, value] : m) {
+    auto n{0};
+    for (const auto &[key, value] : m)
+    {
         if (n++)
             std::cout << ",";
         std::cout << "[" << key << "," << value << "]";
@@ -117,11 +136,13 @@ static void print(const std::map<K,V>& m, const char* text = nullptr) {
     print_end(text);
 }
 
-template<typename K, typename V>
-static void print(const std::unordered_map<K, V>& m, const char* text = nullptr) {
+template <typename K, typename V>
+static void print(const std::unordered_map<K, V> &m, const char *text = nullptr)
+{
     print_begin(text);
-    auto n{ 0 };
-    for (const auto &[key, value] : m) {
+    auto n{0};
+    for (const auto &[key, value] : m)
+    {
         if (n++)
             std::cout << ",";
         std::cout << "[" << key << "," << value << "]";

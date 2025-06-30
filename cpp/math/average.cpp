@@ -48,7 +48,7 @@ static void example(T a, T b, double target) {
 
 static void f1(void) { example(1, 2, 1.5); }
 static void f2(void) { example(100, 23, 61.5); }
-static void f3(void) { long long n = (1LL << 53) + 1; example(n, n, 9007199254740993); }
+static void f3(void) { long long n = (1LL << 53) + 1; example(n, n, 9007199254740993.0); }
 
 static std::vector<void (*)(void)> examples {
     f1, f2, f3
